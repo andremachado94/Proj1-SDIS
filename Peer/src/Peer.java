@@ -18,11 +18,13 @@ public class Peer {
 
     private void InitializeChannels(){
         //TODO Add other channels
-        mbc = new MulticastBackupChannel("0.0.0.0", 1234);
+        mbc = new MulticastBackupChannel("239.0.0.0", 1234);
         //mcc = new MulticastControlChannel("0.0.0.0", 1234);
 
         //TODO Add other Listener Initializers
         InitializeBackupChannelListener();
+
+        mbc.SendBackupRequest("Teste");
 
 
     }
@@ -31,11 +33,11 @@ public class Peer {
         mbc.SetOnMessageReceivedListener(new OnMessageReceivedListener() {
             @Override
             public String OnMessageReceived(String msg) {
-                System.out.println("Main - " + msg);
+                System.out.println("Peer - " + msg);
                 return "ok";
             }
         });
-        mbc.run();
+        mbc.start();
     }
 
 

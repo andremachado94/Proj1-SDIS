@@ -3,15 +3,20 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.UnknownHostException;
+import java.net.*;
+import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by andremachado on 02/03/2018.
  */
-public abstract class MulticastChannel implements Runnable{
+public abstract class MulticastChannel extends Thread{
     protected String ip;
     protected int port;
     protected InetAddress group_address;
     protected MulticastSocket m_socket;
+    protected MulticastSocket s_socket;
 
     private OnMessageReceivedListener onMessageReceivedListener;
 
@@ -23,12 +28,16 @@ public abstract class MulticastChannel implements Runnable{
 
     protected void ConnectToChannel(){
         try {
-            group_address = InetAddress.getByName(ip);
+            group_address = InetAddress.getByName(Util.IPV4_Validator(ip));
 
             try {
-                System.out.println("Connected to:\n\tPort: " + port + "\n\tAddr: " + ip + "\n\tG_Addr: " + group_address.getHostAddress());
                 m_socket = new MulticastSocket(port);
                 m_socket.joinGroup(group_address);
+
+                s_socket = new MulticastSocket();
+                s_socket.setTimeToLive(1);
+
+                System.out.println("Connected to:\n\tPort: " + port + "\n\tAddr: " + Util.IPV4_Validator(ip) + "\n\tG_Addr: " + group_address.getHostAddress());
 
             } catch (IOException e) {
                 System.out.println("Failed to connect to " + group_address.getHostAddress());
@@ -43,20 +52,16 @@ public abstract class MulticastChannel implements Runnable{
 
     protected boolean SendMessage(String msg) {
 
-        MulticastSocket m_socket = null;
         try {
-            m_socket = new MulticastSocket();
-            m_socket.setTimeToLive(1);
-
             String message = msg;
 
             byte[] sendData = message.getBytes();
             InetAddress addr = InetAddress.getByName(ip);
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, addr, port);
 
-            m_socket.send(sendPacket);
 
-            m_socket.close();
+            s_socket.send(sendPacket);
+            //s_socket.close();
 
             return true;
 
@@ -73,6 +78,23 @@ public abstract class MulticastChannel implements Runnable{
 
     @Override
     public void run() {
+        byte[] buffer = new byte[256];
+        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+
+
+
+        while (true) {
+            try {
+                m_socket.receive(packet);
+                String msg = new String(packet.getData()).trim();
+                System.out.println("Message received (on run): " + msg);
+                onMessageReceivedListener.OnMessageReceived(msg);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+/*
         while (true) {
             try {
                 //TODO Add receive from multi-group method
@@ -82,5 +104,6 @@ public abstract class MulticastChannel implements Runnable{
                 System.out.println(e.getMessage());
             }
         }
+*/
     }
 }

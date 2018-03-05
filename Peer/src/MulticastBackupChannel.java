@@ -6,13 +6,17 @@ public class MulticastBackupChannel extends MulticastChannel{
 
     public MulticastBackupChannel(String ip, int port){
         super(ip, port);
-        //ConnectToChannel();
+        ConnectToChannel();
     }
 
     public boolean SendBackupRequest(String msg){
-        if(msg.length() > 0)
+        if(msg.length() > 0) {
+            System.out.println("Wut");
             return SendMessage(msg);
-        else
+        }
+        else {
+            System.out.println("Wut wut");
             return false;
+        }
     }
 }
