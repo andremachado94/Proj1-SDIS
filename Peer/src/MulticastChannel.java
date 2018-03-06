@@ -12,11 +12,11 @@ import java.util.regex.Pattern;
  * Created by andremachado on 02/03/2018.
  */
 public abstract class MulticastChannel extends Thread{
-    protected String ip;
-    protected int port;
-    protected InetAddress group_address;
-    protected MulticastSocket m_socket;
-    protected MulticastSocket s_socket;
+    private String ip;
+    private int port;
+    private InetAddress group_address;
+    private MulticastSocket r_socket;
+    private MulticastSocket s_socket;
 
     private OnMessageReceivedListener onMessageReceivedListener;
 
@@ -26,18 +26,18 @@ public abstract class MulticastChannel extends Thread{
         this.port = port;
     }
 
-    protected void ConnectToChannel(){
+    protected void ConnectToChannel(String channelType){
         try {
             group_address = InetAddress.getByName(Util.IPV4_Validator(ip));
 
             try {
-                m_socket = new MulticastSocket(port);
-                m_socket.joinGroup(group_address);
+                r_socket = new MulticastSocket(port);
+                r_socket.joinGroup(group_address);
 
                 s_socket = new MulticastSocket();
                 s_socket.setTimeToLive(1);
 
-                System.out.println("Connected to:\n\tPort: " + port + "\n\tAddr: " + Util.IPV4_Validator(ip) + "\n\tG_Addr: " + group_address.getHostAddress());
+                System.out.println(channelType + " connected to:\n\tPort: " + port + "\n\tAddr: " + Util.IPV4_Validator(ip) + "\n\tG_Addr: " + group_address.getHostAddress() + "\n");
 
             } catch (IOException e) {
                 System.out.println("Failed to connect to " + group_address.getHostAddress());
@@ -85,9 +85,8 @@ public abstract class MulticastChannel extends Thread{
 
         while (true) {
             try {
-                m_socket.receive(packet);
+                r_socket.receive(packet);
                 String msg = new String(packet.getData()).trim();
-                System.out.println("Message received (on run): " + msg);
                 onMessageReceivedListener.OnMessageReceived(msg);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
