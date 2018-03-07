@@ -3,7 +3,7 @@
  */
 
 
-public class Putchunk {
+public class Chunk {
 
     private Version version;
     private String fileId;
@@ -11,7 +11,7 @@ public class Putchunk {
     private int repDegree;
     private byte[] data;
 
-    public Putchunk(Version version, String fileId, int chunkNumber, int repDegree, byte[] data){
+    public Chunk(Version version, String fileId, int chunkNumber, int repDegree, byte[] data){
         this.version = version;
         this.fileId = fileId;
         this.chunkNumber = chunkNumber;

@@ -70,7 +70,7 @@ public class FileManager {
         return "PUTCHUNK " + version + " " + fileId + " " + chunkNumber + " " + repDegree + " " + u.CRLF_CRLF + data;
     }
 
-    public Putchunk ParsePutChunkMessage(String msg){
+    public Chunk ParsePutChunkMessage(String msg){
 
         String unparsedData[] = msg.split(" ");
         String unparsedMessageData[] = new String[6];
@@ -138,7 +138,7 @@ public class FileManager {
         }
 
 
-        return new Putchunk(version, fileId, chunkNum, repDegree, data);
+        return new Chunk(version, fileId, chunkNum, repDegree, data);
     }
 
 

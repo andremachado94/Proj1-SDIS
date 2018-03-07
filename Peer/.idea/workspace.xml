@@ -59,22 +59,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Putchunk.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Putchunk.java">
+      <file leaf-file-name="Chunk.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Chunk.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+            <state relative-caret-position="120">
+              <caret line="8" column="25" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="25" />
               <folding>
-                <element signature="e#517#518#0" expanded="true" />
-                <element signature="e#547#548#0" expanded="true" />
-                <element signature="e#580#581#0" expanded="true" />
-                <element signature="e#609#610#0" expanded="true" />
-                <element signature="e#644#645#0" expanded="true" />
-                <element signature="e#678#679#0" expanded="true" />
-                <element signature="e#711#712#0" expanded="true" />
-                <element signature="e#743#744#0" expanded="true" />
-                <element signature="e#774#775#0" expanded="true" />
-                <element signature="e#801#802#0" expanded="true" />
+                <element signature="e#511#512#0" expanded="true" />
+                <element signature="e#541#542#0" expanded="true" />
+                <element signature="e#574#575#0" expanded="true" />
+                <element signature="e#603#604#0" expanded="true" />
+                <element signature="e#638#639#0" expanded="true" />
+                <element signature="e#672#673#0" expanded="true" />
+                <element signature="e#705#706#0" expanded="true" />
+                <element signature="e#737#738#0" expanded="true" />
+                <element signature="e#768#769#0" expanded="true" />
+                <element signature="e#795#796#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -122,21 +122,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Peer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Peer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Peer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+            <state relative-caret-position="258">
+              <caret line="30" column="40" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileManager.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FileManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/FileManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="573">
-              <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+            <state relative-caret-position="289">
+              <caret line="72" column="16" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#SliceFile#0;class#FileManager#0" expanded="false" />
@@ -167,11 +167,11 @@
         <option value="$PROJECT_DIR$/src/OnMessageReceivedListener.java" />
         <option value="$PROJECT_DIR$/src/MulticastBackupChannel.java" />
         <option value="$PROJECT_DIR$/src/MulticastControlChannel.java" />
-        <option value="$PROJECT_DIR$/src/Peer.java" />
         <option value="$PROJECT_DIR$/src/Version.java" />
         <option value="$PROJECT_DIR$/src/Util.java" />
         <option value="$PROJECT_DIR$/src/MulticastChannel.java" />
         <option value="$PROJECT_DIR$/src/Putchunk.java" />
+        <option value="$PROJECT_DIR$/src/Peer.java" />
         <option value="$PROJECT_DIR$/src/FileManager.java" />
       </list>
     </option>
@@ -689,16 +689,16 @@
       <option name="presentableId" value="Default" />
       <updated>1519991005704</updated>
       <workItem from="1519991010207" duration="4461000" />
-      <workItem from="1520243699378" duration="29250000" />
+      <workItem from="1520243699378" duration="30580000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33711000" />
+    <option name="totallyTimeSpent" value="35041000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -712,7 +712,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289256" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -921,25 +921,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Putchunk.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
-          <folding>
-            <element signature="e#517#518#0" expanded="true" />
-            <element signature="e#547#548#0" expanded="true" />
-            <element signature="e#580#581#0" expanded="true" />
-            <element signature="e#609#610#0" expanded="true" />
-            <element signature="e#644#645#0" expanded="true" />
-            <element signature="e#678#679#0" expanded="true" />
-            <element signature="e#711#712#0" expanded="true" />
-            <element signature="e#743#744#0" expanded="true" />
-            <element signature="e#774#775#0" expanded="true" />
-            <element signature="e#801#802#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MulticastControlChannel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -948,22 +929,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/FileManager.java">
+    <entry file="file://$PROJECT_DIR$/src/Peer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+        <state relative-caret-position="258">
+          <caret line="30" column="40" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Chunk.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="25" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#SliceFile#0;class#FileManager#0" expanded="false" />
+            <element signature="e#511#512#0" expanded="true" />
+            <element signature="e#541#542#0" expanded="true" />
+            <element signature="e#574#575#0" expanded="true" />
+            <element signature="e#603#604#0" expanded="true" />
+            <element signature="e#638#639#0" expanded="true" />
+            <element signature="e#672#673#0" expanded="true" />
+            <element signature="e#705#706#0" expanded="true" />
+            <element signature="e#737#738#0" expanded="true" />
+            <element signature="e#768#769#0" expanded="true" />
+            <element signature="e#795#796#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Peer.java">
+    <entry file="file://$PROJECT_DIR$/src/FileManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
-          <folding />
+        <state relative-caret-position="289">
+          <caret line="72" column="16" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#SliceFile#0;class#FileManager#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
