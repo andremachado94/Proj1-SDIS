@@ -1,15 +1,17 @@
 /**
  * Created by andremachado on 05/03/2018.
  */
+
+
 public class Putchunk {
 
-    private String version;
+    private Version version;
     private String fileId;
     private int chunkNumber;
     private int repDegree;
     private byte[] data;
 
-    public Putchunk(String version, String fileId, int chunkNumber, int repDegree, byte[] data){
+    public Putchunk(Version version, String fileId, int chunkNumber, int repDegree, byte[] data){
         this.version = version;
         this.fileId = fileId;
         this.chunkNumber = chunkNumber;
@@ -18,7 +20,7 @@ public class Putchunk {
     }
 
 
-    public String getVersion() {
+    public Version getVersion() {
         return version;
     }
 

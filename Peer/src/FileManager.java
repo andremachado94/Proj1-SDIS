@@ -9,9 +9,10 @@ import java.util.ArrayList;
  */
 public class FileManager {
 
+    private Util u = new Util();
+
     private static int MIN_CHUNK_SIZE = 0;
     private static int MAX_CHUNK_SIZE = 64000;
-    private String crlf(){return Integer.toString(0xD, 16) + Integer.toString(0xA, 16);}
 
     public ArrayList<byte[]> SliceFile(String path, int chunkSize){
 
@@ -66,19 +67,79 @@ public class FileManager {
         String fileId = "CCC";
         String data = new String(chunk).trim();
 
-        return "PUTCHUNK " + version + " " + fileId + " " + chunkNumber + " " + repDegree + " " + crlf() + crlf() + data;
+        return "PUTCHUNK " + version + " " + fileId + " " + chunkNumber + " " + repDegree + " " + u.CRLF_CRLF + data;
     }
-
 
     public Putchunk ParsePutChunkMessage(String msg){
 
         String unparsedData[] = msg.split(" ");
         String unparsedMessageData[] = new String[6];
+
+        //Delete excessive white space
+
+        int j = 0;
         for (int i = 0 ; i<unparsedData.length ; i++)
+        {
+            if(j >= 6){
+                System.out.println("Invalid (excessive) number of arguments\n");
+                return null;
+            }
+            else if(unparsedData[i].length() == 0){
+                continue;
+            }
+            else{
+                unparsedMessageData[j++] = unparsedData[i];
+            }
+        }
+
+        if(j != 6){
+            System.out.println("Invalid (defective) number of arguments\n");
+            return null;
+        }
+
+        if(u.MessageTypeValidator(unparsedMessageData[0]) != Util.TYPE_PUTCHUNK){
+            System.out.println("Invalid type for PUTCHUNK ");
+            return null;
+        }
+
+        Version version;
+
+        if((version = u.VersionParser(unparsedData[1])) == null){
+            System.out.println("Invalid version number in PUTCHUNK");
+            return null;
+        }
+
+        String fileId = unparsedData[2];
+
+        if(fileId.length() == 0){
+            System.out.println("Invalid fileId in PUTCHUNK");
+            return null;
+        }
+
+        int chunkNum = Integer.getInteger(unparsedData[3]);
+
+        if(false){ //TODO
+            System.out.println("Invalid chunk number in PUTCHUNK");
+            return null;
+        }
+
+        int repDegree = Integer.getInteger(unparsedData[4]);
+
+        if(false){ //TODO
+            System.out.println("Invalid replication degree in PUTCHUNK");
+            return null;
+        }
+
+        byte data[];
+
+        if((data = u.ParseDataString(unparsedData[5])) == null){
+            System.out.println("Invalid data field in PUTCHUNK");
+            return null;
+        }
 
 
-
-        return null;
+        return new Putchunk(version, fileId, chunkNum, repDegree, data);
     }
+
 
 }

@@ -92,17 +92,5 @@ public abstract class MulticastChannel extends Thread{
                 System.out.println(e.getMessage());
             }
         }
-
-/*
-        while (true) {
-            try {
-                //TODO Add receive from multi-group method
-                Thread.sleep(3 * 1000); // sleep for 3 seconds and pretend to be working
-                onMessageReceivedListener.OnMessageReceived("Hello"); //TODO Replace "Hello" by the msg received
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-*/
     }
 }
