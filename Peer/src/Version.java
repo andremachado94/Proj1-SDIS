@@ -5,7 +5,7 @@ public class Version {
     private final int version;
     private final int subVersion;
 
-    public Version(String version){
+    public Version(String version) throws IllegalArgumentException{
         String unparsedData[] = version.split(".");
 
         if(unparsedData.length != 2){

@@ -104,10 +104,14 @@ public class FileManager {
 
         Version version;
 
-        if((version = u.VersionParser(unparsedData[1])) == null){
-            System.out.println("Invalid version number in PUTCHUNK");
+        try {
+            version = new Version(unparsedData[1]);
+        }
+        catch (IllegalArgumentException e){
             return null;
         }
+
+
 
         String fileId = unparsedData[2];
 
