@@ -58,23 +58,6 @@ public class Util {
         else {
             return TYPE_ERROR;
         }
-
-    }
-
-    public Version VersionParser(String version){
-        String unparsedData[] = version.split(".");
-        int v;
-        int sv;
-
-        if(unparsedData.length != 2){
-            System.out.println("Invalid version format");
-            return null;
-        }
-
-        v = Integer.parseInt(unparsedData[0]);
-        sv = Integer.parseInt(unparsedData[1]);
-
-        return new Version(v, sv);
     }
 
     public byte[] ParseDataString(String data){
