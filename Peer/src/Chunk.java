@@ -1,10 +1,12 @@
 /**
  * Created by andremachado on 05/03/2018.
  */
+// http://ormlite.com/
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.field.DataType;
 import java.util.Date;
+
 
 @DatabaseTable(tableName = "chunks")
 public class Chunk {
