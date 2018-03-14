@@ -14,7 +14,15 @@ public class FileManager {
     private static int MIN_CHUNK_SIZE = 0;
     private static int MAX_CHUNK_SIZE = 64000;
 
-    public ArrayList<byte[]> SliceFile(String path, int chunkSize){
+    private String path;
+    private int chunkSize;
+
+    public FileManager(String path, int chunkSize){
+        this.path=path;
+        this.chunkSize=chunkSize;
+    }
+
+    public ArrayList<byte[]> SliceFile(){
 
         ArrayList<byte[]> slicedFile = new ArrayList<byte[]>();
 

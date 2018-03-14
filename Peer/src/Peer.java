@@ -32,27 +32,16 @@ public class Peer {
     }
 
     private void InitializeChannels(){
-        mbc = new MulticastBackupChannel(mbc_ip, mbc_port);
         mcc = new MulticastControlChannel(mcc_ip, mcc_port);
 
         InitializeChannelListeners();
     }
 
     private void InitializeChannelListeners(){
-        InitializeBackupChannelListener();
         InitializeControlChannelListener();
     }
 
-    private void InitializeBackupChannelListener(){
-        mbc.SetOnMessageReceivedListener(new OnMessageReceivedListener() {
-            @Override
-            public String OnMessageReceived(String msg) {
-                mcc.SendControlMessage("Envio control a a dizer que recebi a msg: " + msg);
-                return "ok";
-            }
-        });
-        mbc.start();
-    }
+
 
     private void InitializeControlChannelListener(){
         mcc.SetOnMessageReceivedListener(new OnMessageReceivedListener() {
