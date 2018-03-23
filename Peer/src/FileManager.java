@@ -3,6 +3,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by andremachado on 05/03/2018.
@@ -17,14 +18,23 @@ public class FileManager {
     private String path;
     private int chunkSize;
 
-    public FileManager(String path, int chunkSize){
-        this.path=path;
-        this.chunkSize=chunkSize;
+
+    public int PreSize(String type, int id){
+        return  u.getCRLF_CRLF().getBytes().length +
+                type.getBytes().length +
+                Integer.toString(id).getBytes().length +
+                45;
     }
 
-    public ArrayList<byte[]> SliceFile(){
+
+    public static ArrayList<byte[]> SliceFile(String path, int msgSize){
 
         ArrayList<byte[]> slicedFile = new ArrayList<byte[]>();
+
+        int chunkSize = MAX_CHUNK_SIZE - msgSize;
+
+        System.out.println("Chunk Size: " + chunkSize);
+        System.out.println("PreMsg Size: " + msgSize);
 
         if(chunkSize > MIN_CHUNK_SIZE && chunkSize <= MAX_CHUNK_SIZE) {
             try {
@@ -32,8 +42,10 @@ public class FileManager {
                 byte[] buffer = new byte[chunkSize];
                 int n;
                 try {
-                    while((n = is.read(buffer)) > 0) {
-                        slicedFile.add(buffer);
+                    while((n = is.read(buffer)) >= 0) {
+                        byte[] dst = Arrays.copyOf(buffer, n);
+                        System.out.println("Buffer Size: " + n);
+                        slicedFile.add(dst);
                     }
                     return slicedFile;
                 } catch (IOException e) {
@@ -66,92 +78,6 @@ public class FileManager {
         return null;
     }
 
-    public String GetPutChunkMessage(byte[] chunk, int chunkNumber, String version, int peerId, int repDegree){
-
-        if(version == null){
-            version = "1.0"; //default version
-        }
-
-        String fileId = "CCC";
-        String data = new String(chunk).trim();
-
-        return "PUTCHUNK " + version + " " + fileId + " " + chunkNumber + " " + repDegree + " " + u.CRLF_CRLF + data;
-    }
-
-    public Chunk ParsePutChunkMessage(String msg){
-
-        String unparsedData[] = msg.split(" ");
-        String unparsedMessageData[] = new String[6];
-
-        //Delete excessive white space
-
-        int j = 0;
-        for (int i = 0 ; i<unparsedData.length ; i++)
-        {
-            if(j >= 6){
-                System.out.println("Invalid (excessive) number of arguments\n");
-                return null;
-            }
-            else if(unparsedData[i].length() == 0){
-                continue;
-            }
-            else{
-                unparsedMessageData[j++] = unparsedData[i];
-            }
-        }
-
-        if(j != 6){
-            System.out.println("Invalid (defective) number of arguments\n");
-            return null;
-        }
-
-        if(u.MessageTypeValidator(unparsedMessageData[0]) != Util.TYPE_PUTCHUNK){
-            System.out.println("Invalid type for PUTCHUNK ");
-            return null;
-        }
-
-        Version version;
-
-        try {
-            version = new Version(unparsedData[1]);
-        }
-        catch (IllegalArgumentException e){
-            return null;
-        }
-
-
-
-        String fileId = unparsedData[2];
-
-        if(fileId.length() == 0){
-            System.out.println("Invalid fileId in PUTCHUNK");
-            return null;
-        }
-
-        int chunkNum = Integer.getInteger(unparsedData[3]);
-
-        if(false){ //TODO
-            System.out.println("Invalid chunk number in PUTCHUNK");
-            return null;
-        }
-
-        int repDegree = Integer.getInteger(unparsedData[4]);
-
-        if(false){ //TODO
-            System.out.println("Invalid replication degree in PUTCHUNK");
-            return null;
-        }
-
-        byte data[];
-
-        if((data = u.ParseDataString(unparsedData[5])) == null){
-            System.out.println("Invalid data field in PUTCHUNK");
-            return null;
-        }
-
-
-        return new Chunk(version, fileId, chunkNum, repDegree, data);
-    }
 
 
 }
