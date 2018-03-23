@@ -6,10 +6,10 @@ public class Version {
     private final int subVersion;
 
     public Version(String version) throws IllegalArgumentException{
-        String unparsedData[] = version.split(".");
+        String unparsedData[] = version.trim().split("\\.");
 
         if(unparsedData.length != 2){
-            System.out.println("Invalid version format");
+            System.out.println("Invalid version format: " + version + "   -   " + unparsedData.length );
             throw new IllegalArgumentException();
         }
 
