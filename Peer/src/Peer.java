@@ -21,28 +21,38 @@ public class Peer {
     private int mcc_port = 5678;
 
     private int peer_id;
-    ControlModule controlModule;
-    BackupController backupController;
 
     public Peer(){
 
-        //TODO peer_id = random number betwee 0 and a lot
         Random rand = new Random();
-        peer_id = rand.nextInt(100000);
+        peer_id = rand.nextInt(100 + 1);
 
-        System.out.println("My id is: " + peer_id);
-
-
-        controlModule = new ControlModule(mcc_ip, mcc_port);
-        backupController = new BackupController(mbc_ip, mbc_port, peer_id, controlModule);
-
+        InitializeChannels();
+        mbc.SendBackupRequest("Hey, tudo bem?");
     }
 
-    public void StartBackupRequest(String filePath){
-        backupController.StartBackupRequest(filePath);
+    private void InitializeChannels(){
+        mcc = new MulticastControlChannel(mcc_ip, mcc_port);
+
+        InitializeChannelListeners();
+    }
+
+    private void InitializeChannelListeners(){
+        InitializeControlChannelListener();
     }
 
 
+
+    private void InitializeControlChannelListener(){
+        mcc.SetOnMessageReceivedListener(new OnMessageReceivedListener() {
+            @Override
+            public String OnMessageReceived(String msg) {
+                System.out.println("Controlo recebido - " + msg);
+                return "ok";
+            }
+        });
+        mcc.start();
+    }
 
 
 }

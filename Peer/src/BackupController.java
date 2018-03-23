@@ -1,30 +1,10 @@
 import java.util.ArrayList;
 
-
 /**
  * Created by andremachado on 09/03/2018.
  */
-public class BackupController{
+public class BackupController extends Thread{
 
-    BackupDispatcher dispatcher;
-    BackupInitializer initializer;
-    private MulticastBackupChannel channel;
-
-    private int id;
-
-    public BackupController(String ip, int port, int id, ControlModule controlModule){
-        channel = new MulticastBackupChannel(ip,port);
-        this.id = id;
-        dispatcher = new BackupDispatcher(ip, port, id, controlModule, channel);
-        initializer = new BackupInitializer(ip, port, id, controlModule, channel);
-    }
-
-    public void StartBackupRequest(String filePath){
-        initializer.StartBackupRequest(filePath, "1.1", 2);
-    }
-
-
-    /*
     private MulticastControlChannel mcc;
     private MulticastBackupChannel mbc;
     private int peerId;
@@ -75,8 +55,6 @@ public class BackupController{
         sendingFile = false;
         fileRepDegCounter = null;
     }
-
-    */
 
 }
 

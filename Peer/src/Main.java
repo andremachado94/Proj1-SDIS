@@ -1,10 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println("Hello World!");
         Peer peer = new Peer();
-
-        if(args.length == 1){
-            peer.StartBackupRequest(args[0]);
-        }
     }
 }
