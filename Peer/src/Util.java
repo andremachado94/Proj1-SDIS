@@ -1,3 +1,6 @@
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.InputMismatchException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,13 +16,15 @@ public class Util {
     public static int TYPE_DELETE = 3;
     public static int TYPE_RECLAIM = 4;
     public static int TYPE_PUTCHUNK = 5;
-
+    public static int TYPE_STORED = 6;
     public static int TYPE_ERROR = -1;
 
     public final String CRLF_CRLF = crlf() + crlf();
     public final String CRLF = crlf();
 
     private String crlf(){return Integer.toString(0xD, 16) + Integer.toString(0xA, 16);}
+
+    public String getCRLF_CRLF(){return crlf() + crlf();}
 
     public static String IPV4_Validator(String ipString){
         String IPADDRESS_PATTERN = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
@@ -31,6 +36,20 @@ public class Util {
         } else{
             return "0.0.0.0";
         }
+    }
+
+    public static byte[] SHA256(String text){
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(text.getBytes(StandardCharsets.UTF_8));
+
+            return hash;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     public void PrintInvalidHeadersMessage(){
@@ -55,19 +74,15 @@ public class Util {
         else if(messageType.equalsIgnoreCase("PUTCHUNK")){
             return TYPE_PUTCHUNK;
         }
+        else if(messageType.equalsIgnoreCase("STORED")){
+            return TYPE_STORED;
+        }
         else {
             return TYPE_ERROR;
         }
     }
 
     public byte[] ParseDataString(String data){
-        if(data.startsWith(CRLF_CRLF)){
-            data = data.substring(4, data.length());
-            return data.getBytes();
-        }
-        else {
-            System.out.println("<CRLF><CRLF> not found in data parser");
-            return null;
-        }
+        return data.getBytes();
     }
 }

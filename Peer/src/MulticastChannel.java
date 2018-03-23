@@ -3,10 +3,6 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.UnknownHostException;
-import java.net.*;
-import java.io.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by andremachado on 02/03/2018.
@@ -61,8 +57,26 @@ public abstract class MulticastChannel extends Thread{
 
 
             s_socket.send(sendPacket);
-            //s_socket.close();
 
+            return true;
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    protected boolean SendMessage(byte[] msg) {
+
+        try {
+
+            InetAddress addr = InetAddress.getByName(ip);
+            DatagramPacket sendPacket = new DatagramPacket(msg, msg.length, addr, port);
+
+
+            s_socket.send(sendPacket);
             return true;
 
 
