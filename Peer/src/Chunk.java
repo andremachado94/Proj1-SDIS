@@ -5,6 +5,8 @@
 //import com.j256.ormlite.field.DatabaseField;
 //import com.j256.ormlite.table.DatabaseTable;
 //import com.j256.ormlite.field.DataType;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 
 //@DatabaseTable(tableName = "chunks")
@@ -83,21 +85,21 @@ public class Chunk {
     }
 
 
-    public static byte[] GetPutChunkMessage(byte[] chunk,int chunkNumber, String version, int peerId, int repDegree){
+    public static byte[] GetPutChunkMessage(byte[] chunk,int chunkNumber, String version, int peerId, int repDegree, String fileName){
 
         if(version == null){
             version = "1.0"; //default version
         }
 
-        //TODO hash function
-        String fileId = "CCasdasdasdasdasdasdasdasC";
+        //TODO hash function ??
 
         String dataString = "PUTCHUNK " + version + " " + peerId + " ";
         byte preData[] = dataString.getBytes();
-        preData = ByteConcat(preData, u.SHA256(fileId));
+        preData = ByteConcat(preData, Util.GetCleanId(new String(u.SHA256(fileName))).getBytes());
 
         dataString = " " + chunkNumber + " " + repDegree + " " + u.CRLF_CRLF;
         preData = ByteConcat(preData, dataString.getBytes());
+
 
         byte[] data = ByteConcat(preData, chunk);
 
@@ -127,7 +129,28 @@ public class Chunk {
 
 
     //TODO change this to constructor??
-    public static Chunk ParsePutChunkMessage(String msg){
+    //TODO when return null stop thread
+    public static Chunk ParsePutChunkMessage(byte[] receivedData){
+
+        StreamSearcher streamSearcher = new StreamSearcher(u.CRLF_CRLF.getBytes());
+        byte data[];
+
+        try {
+            long index = streamSearcher.search(receivedData);
+            if(index == -1){
+                return null;
+            }
+
+            data = Arrays.copyOfRange(receivedData, (int) index, receivedData.length);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        String msg = new String(receivedData);
+
 
         String crlfSplit[] = msg.split(u.CRLF_CRLF);
 
@@ -205,13 +228,12 @@ public class Chunk {
             System.out.println("Invalid replication degree in PUTCHUNK");
             return null;
         }
-
-        byte data[];
-
+/*
         if((data = u.ParseDataString(crlfSplit[1])) == null){
             System.out.println("Invalid data field in PUTCHUNK");
             return null;
         }
+*/
 
 
         return new Chunk(version, peerId ,fileId, chunkNum, repDegree, data);
@@ -223,16 +245,4 @@ public class Chunk {
     }
 
 
-    /*
-    public int hashCode() {
-        return name.hashCode();
-    }
-
-    public boolean equals(Object other) {
-        if (other == null || other.getClass() != getClass()) {
-            return false;
-        }
-        return name.equals(((Account) other).name);
-    }
-    */
 }

@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -33,13 +30,11 @@ public class FileManager {
 
         int chunkSize = MAX_CHUNK_SIZE - msgSize;
 
-        System.out.println("Chunk Size: " + chunkSize);
-        System.out.println("PreMsg Size: " + msgSize);
-
         if(chunkSize > MIN_CHUNK_SIZE && chunkSize <= MAX_CHUNK_SIZE) {
             try {
                 FileInputStream is = new FileInputStream(new File(path));
                 byte[] buffer = new byte[chunkSize];
+                System.out.println("CHUNK SIZE: " + chunkSize);
                 int n;
                 try {
                     while((n = is.read(buffer)) >= 0) {
@@ -76,6 +71,76 @@ public class FileManager {
             System.out.println(chunkSize + " is an invalid chunk size.\nShould be between 1 and 64000");
         }
         return null;
+    }
+
+    private static String GetChunkPathName(Chunk chunk){
+        return chunk.getFileId();
+    }
+
+
+    public static void WriteChunckToBinFile(Chunk chunk, int id){
+        String filePathString = null;
+        final String dir = System.getProperty("user.dir");
+
+        final String peerdir = new File(dir).getParent()+"/"+"backup_chunks"+"/"+id;
+
+        File f2 = new File(peerdir);
+        if(!f2.exists()){
+            try{
+                f2.mkdir();
+            }
+            catch(SecurityException se){
+                se.printStackTrace();
+            }
+        }
+
+
+        try {
+            filePathString = new File(dir).getParent()+"/"+"backup_chunks"+"/"+id+"/"+chunk.getFileId();
+            System.out.println("PATH: " + filePathString);
+
+            File f = new File(new File(dir).getParent()+"/"+"backup_chunks");
+
+            if(!f.exists()){
+                try{
+                    f.mkdir();
+                }
+                catch(SecurityException se){
+                    se.printStackTrace();
+                }
+            }
+
+            f = new File(filePathString);
+            if(!f.exists()){
+                try{
+                    f.mkdir();
+                }
+                catch(SecurityException se){
+                    se.printStackTrace();
+                }
+            }
+
+            if(f.exists() && f.isDirectory()) {
+                FileOutputStream fos;
+                try {
+                    fos = new FileOutputStream(filePathString+"/"+chunk.getChunkNumber()+".bin");
+                    try {
+                        fos.write(chunk.getData(), 0, chunk.getData().length);
+                        fos.flush();
+                        fos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                System.out.println("FILE NOT FOUND");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

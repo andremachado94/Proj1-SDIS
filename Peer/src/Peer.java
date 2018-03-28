@@ -38,8 +38,8 @@ public class Peer {
 
     }
 
-    public void StartBackupRequest(String filePath){
-        backupController.StartBackupRequest(filePath);
+    public void StartBackupRequest(String filePath, String version, int repDeg, String fileName){
+        backupController.StartBackupRequest(filePath, version, repDeg, fileName);
     }
 
 

@@ -7,8 +7,8 @@ public class MulticastControlChannel extends MulticastChannel{
         ConnectToChannel("Control Channel");
     }
 
-    public boolean SendControlMessage(String msg){
-        if(msg.length() > 0) {
+    public boolean SendControlMessage(byte[] msg){
+        if(msg.length > 0) {
             return SendMessage(msg);
         }
         else {

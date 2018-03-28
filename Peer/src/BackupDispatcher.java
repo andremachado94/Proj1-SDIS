@@ -21,7 +21,7 @@ public class BackupDispatcher {
     private void InitializeBackupChannelListener(MulticastBackupChannel channel, ControlModule controlModule){
         channel.SetOnMessageReceivedListener(new OnMessageReceivedListener() {
             @Override
-            public String OnMessageReceived(String msg) {
+            public String OnMessageReceived(byte[] msg) {
                 //TODO received backup message. Need to create worker thread to handle it.
 
                 BackupReceiverThread workerThread = new BackupReceiverThread(msg, id, controlModule);

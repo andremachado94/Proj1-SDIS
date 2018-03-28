@@ -5,12 +5,12 @@ import java.net.DatagramPacket;
  */
 public class BackupReceiverThread extends Thread {
 
-    private String message;
+    private byte[] message;
     private Chunk chunk;
     private int id;
     private ControlModule controlModule;
 
-    public BackupReceiverThread(String message, int id, ControlModule controlModule){
+    public BackupReceiverThread(byte[] message, int id, ControlModule controlModule){
         this.controlModule = controlModule;
         this.message = message;
         this.id = id;
@@ -20,6 +20,8 @@ public class BackupReceiverThread extends Thread {
     public void run() {
         chunk = Chunk.ParsePutChunkMessage(message);
 
+        System.out.println("DATA SIZE AFTER PARSE IS " + chunk.getData().length + " bytes");
+
         if(chunk != null && this.id != chunk.getPeerId()){
             //Sleep for rand time between 0 - 400 ms
             try {
@@ -28,8 +30,11 @@ public class BackupReceiverThread extends Thread {
                 e.printStackTrace();
             }
 
-            System.out.println("Received " + message);
 
+
+
+
+            FileManager.WriteChunckToBinFile(chunk, this.id);
             //Check control - enhancement - not needed for now
             //TODO
 
@@ -38,7 +43,7 @@ public class BackupReceiverThread extends Thread {
 
 
             //Send STORED control message
-            String msg = chunk.GetStoredMessage(id);
+            byte[] msg = chunk.GetStoredMessage(id).getBytes();
             controlModule.SendControlMessage(msg);
             //TODO call control sender method
         }

@@ -42,9 +42,28 @@ public class Util {
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(text.getBytes(StandardCharsets.UTF_8));
+            digest.update(text.getBytes());
+            //byte[] hash = digest.digest(text.getBytes(StandardCharsets.US_ASCII));
 
-            return hash;
+            return digest.digest();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static String GetCleanId(String id){
+        return String.valueOf(id.hashCode());
+    }
+
+    public static String SHA256_String(String text){
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(text.getBytes(StandardCharsets.US_ASCII));
+
+            return new String(hash);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
