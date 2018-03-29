@@ -35,7 +35,7 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         System.out.println("\t     MCC Address: "+mcc_ip+":"+mcc_port);
         System.out.println("\t     MBC Address: "+mbc_ip+":"+mbc_port);
         System.out.println("\t     MRC Address: "+mrc_ip+":"+mrc_port);
-        System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+        System.out.println("::::::::::::::::::::::::::::::::::::::::::::\n");
     }
 
     @Deprecated
@@ -81,7 +81,14 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     @Override
     public String state() {
-        return null;
+        return  "\n:::::::::::::::: PEER STATE ::::::::::::::::" +
+                "\n\t  Protocol Version: "+protocolVersion+
+                "\n\t         Server ID: "+serverId+
+                "\n\t      Access Point: "+accessPoint+
+                "\n\t    Control Module: "+controlModule+ //TODO implement this toString()
+                "\n\t Backup Controller: "+backupController+ //TODO implement this toString()
+                "\n\tRestore Controller: "+restoreController+ //TODO implement this toString()
+                "\n::::::::::::::::::::::::::::::::::::::::::::";
     }
 
     private String getUrl(){
