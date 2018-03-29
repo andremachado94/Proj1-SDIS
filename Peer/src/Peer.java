@@ -21,7 +21,7 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     private MulticastBackupChannel mbc;
     private MulticastControlChannel mcc;
-    private MulticastRecoveryChannel mrc;
+    private MulticastRestoreChannel mrc;
 
     private String mbc_ip = "239.0.0.0";
     private int mbc_port = 1234;
@@ -29,9 +29,13 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
     private String mcc_ip = "239.1.0.0";
     private int mcc_port = 5678;
 
+    private String mrc_ip = "239.2.0.0";
+    private int mrc_port = 5618;
+
     private int peer_id;
     ControlModule controlModule;
     BackupController backupController;
+    RestoreController restoreController;
 
     public Peer() throws RemoteException {
         super(); // required to avoid the 'rmic' step
@@ -42,12 +46,19 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
         System.out.println("My id is: " + peer_id);
 
+
         controlModule = new ControlModule(mcc_ip, mcc_port);
         backupController = new BackupController(mbc_ip, mbc_port, peer_id, controlModule);
+        restoreController = new RestoreController(mrc_ip, mrc_port, peer_id, controlModule);
+
     }
 
-    public void StartBackupRequest(String filePath){
-        backupController.StartBackupRequest(filePath);
+    public void StartBackupRequest(String filePath, String version, int repDeg, String fileName){
+        backupController.StartBackupRequest(filePath, version, repDeg, fileName);
+    }
+
+    public void StartRestoreRequest(String fileName, String version) {
+        restoreController.StartRestoreRequest(fileName, version);
     }
 
     @Override
@@ -61,9 +72,9 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
         // print to peer's console
         System.out.println("Received request to backup given file:");
-        System.out.println("\tPATH:\t"+filePathname);
-        System.out.println("\t LEN:\t"+fileLength);
-        System.out.println("\tLMOD:\t"+sdf.format(fileLastModified));
+        System.out.println("\tPATH:\t" + filePathname);
+        System.out.println("\t LEN:\t" + fileLength);
+        System.out.println("\tLMOD:\t" + sdf.format(fileLastModified));
 
         // split file in chunks, creating 1 worker thread (to putchunk) per chunk
         ArrayList<byte[]> chunksBytes = new ArrayList<>();
@@ -79,13 +90,10 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         } while (copied > 0);
 
         // fix the case where last chunk equals precisely 64,000 bytes
-        if (chunksBytes.get(chunksBytes.size() - 1).length == 64000){
+        if (chunksBytes.get(chunksBytes.size() - 1).length == 64000) {
             chunksBytes.add(new byte[0]);
         }
-
-        // TODO process these chunkBytes, creating worker threads per chunk and pooling them together
-
-        return "BACKUP: "+filePathname+" has been processed successfully!";
+        return null;
     }
 
     @Override

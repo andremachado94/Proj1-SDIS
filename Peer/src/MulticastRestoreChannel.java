@@ -1,13 +1,13 @@
 /**
  * Created by andremachado on 02/03/2018.
  */
-public class MulticastControlChannel extends MulticastChannel{
-    public MulticastControlChannel(String ip, int port){
+public class MulticastRestoreChannel extends MulticastChannel{
+    public MulticastRestoreChannel(String ip, int port){
         super(ip, port);
-        ConnectToChannel("Control Channel");
+        ConnectToChannel("Restore Channel");
     }
 
-    public boolean SendControlMessage(byte[] msg){
+    public boolean SendRestoreMessage(byte[] msg){
         if(msg.length > 0) {
             return SendMessage(msg);
         }
@@ -16,3 +16,4 @@ public class MulticastControlChannel extends MulticastChannel{
         }
     }
 }
+

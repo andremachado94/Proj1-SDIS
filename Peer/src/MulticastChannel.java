@@ -3,6 +3,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by andremachado on 02/03/2018.
@@ -77,6 +78,7 @@ public abstract class MulticastChannel extends Thread{
 
 
             s_socket.send(sendPacket);
+            System.out.println("Sent " + msg.length + " bytes");
             return true;
 
 
@@ -92,16 +94,18 @@ public abstract class MulticastChannel extends Thread{
 
     @Override
     public void run() {
-        byte[] buffer = new byte[256];
+        byte[] buffer = new byte[65000];
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
-
+        byte[] data;
 
         while (true) {
             try {
                 r_socket.receive(packet);
-                String msg = new String(packet.getData()).trim();
-                onMessageReceivedListener.OnMessageReceived(msg);
+                data = new byte[packet.getLength()];
+                System.arraycopy(packet.getData(), packet.getOffset(), data, 0, packet.getLength());
+                System.out.println("Received before " + data.length + " bytes");
+                onMessageReceivedListener.OnMessageReceived(data);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
