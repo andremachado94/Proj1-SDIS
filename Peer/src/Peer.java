@@ -12,7 +12,7 @@ public class Peer {
 
     private MulticastBackupChannel mbc;
     private MulticastControlChannel mcc;
-    private MulticastRecoveryChannel mrc;
+    private MulticastRestoreChannel mrc;
 
     private String mbc_ip = "239.0.0.0";
     private int mbc_port = 1234;
@@ -20,9 +20,13 @@ public class Peer {
     private String mcc_ip = "239.1.0.0";
     private int mcc_port = 5678;
 
+    private String mrc_ip = "239.2.0.0";
+    private int mrc_port = 5618;
+
     private int peer_id;
     ControlModule controlModule;
     BackupController backupController;
+    RestoreController restoreController;
 
     public Peer(){
 
@@ -35,6 +39,7 @@ public class Peer {
 
         controlModule = new ControlModule(mcc_ip, mcc_port);
         backupController = new BackupController(mbc_ip, mbc_port, peer_id, controlModule);
+        restoreController = new RestoreController(mrc_ip, mrc_port, peer_id, controlModule);
 
     }
 
@@ -43,6 +48,7 @@ public class Peer {
     }
 
 
-
-
+    public void StartRestoreRequest(String fileName, String version) {
+        restoreController.StartRestoreRequest(fileName, version);
+    }
 }
