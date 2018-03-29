@@ -17,6 +17,8 @@ public class Util {
     public static int TYPE_RECLAIM = 4;
     public static int TYPE_PUTCHUNK = 5;
     public static int TYPE_STORED = 6;
+    public static int TYPE_GETCHUNK = 7;
+
     public static int TYPE_ERROR = -1;
 
     public final String CRLF_CRLF = crlf() + crlf();
@@ -95,6 +97,9 @@ public class Util {
         }
         else if(messageType.equalsIgnoreCase("STORED")){
             return TYPE_STORED;
+        }
+        else if(messageType.equalsIgnoreCase("GETCHUNK")){
+            return TYPE_GETCHUNK;
         }
         else {
             return TYPE_ERROR;

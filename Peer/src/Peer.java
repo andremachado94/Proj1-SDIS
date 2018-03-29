@@ -37,7 +37,7 @@ public class Peer {
         System.out.println("My id is: " + peer_id);
 
 
-        controlModule = new ControlModule(mcc_ip, mcc_port);
+        controlModule = new ControlModule(mcc_ip, mcc_port, restoreController);
         backupController = new BackupController(mbc_ip, mbc_port, peer_id, controlModule);
         restoreController = new RestoreController(mrc_ip, mrc_port, peer_id, controlModule);
 
