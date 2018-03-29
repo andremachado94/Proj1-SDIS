@@ -12,7 +12,6 @@ import java.util.Random;
  */
 public class Peer extends UnicastRemoteObject implements BackupInterface {
     public static final int CHUNK_SIZE = 64000; //64 KBytes, 64000 Bytes
-    public static final int PORT = 1099;
     public static final int TYPE_BACKUP = 1;
     public static final int TYPE_RESTORE = 2;
     public static final int TYPE_DELETE = 3;
@@ -46,7 +45,6 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
         System.out.println("My id is: " + peer_id);
 
-
         controlModule = new ControlModule(mcc_ip, mcc_port);
         backupController = new BackupController(mbc_ip, mbc_port, peer_id, controlModule);
         restoreController = new RestoreController(mrc_ip, mrc_port, peer_id, controlModule);
@@ -63,42 +61,14 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     @Override
     public String backup(BackupFile file, int repDegree) throws RemoteException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
-        //
-        String filePathname = file.getPathname();
-        long fileLength = file.getLength();
-        long fileLastModified = file.getLastModified();
-
-        // print to peer's console
-        System.out.println("Received request to backup given file:");
-        System.out.println("\tPATH:\t" + filePathname);
-        System.out.println("\t LEN:\t" + fileLength);
-        System.out.println("\tLMOD:\t" + sdf.format(fileLastModified));
-
-        // split file in chunks, creating 1 worker thread (to putchunk) per chunk
-        ArrayList<byte[]> chunksBytes = new ArrayList<>();
-        byte[] fileBytes = file.getDataBytes();
-        int i = 0, k = i + CHUNK_SIZE;
-        int copied = 0;
-        do {
-            byte[] chunkBytes = Arrays.copyOfRange(fileBytes, i, k);
-            chunksBytes.add(chunkBytes);
-            i += CHUNK_SIZE;
-            k += CHUNK_SIZE;
-            copied = chunkBytes.length;
-        } while (copied > 0);
-
-        // fix the case where last chunk equals precisely 64,000 bytes
-        if (chunksBytes.get(chunksBytes.size() - 1).length == 64000) {
-            chunksBytes.add(new byte[0]);
-        }
-        return null;
+        backupController.StartBackupRequest(file.getPathname(), file.getVersion(), file.GetRepDegree(), file.getFileName());
+        return "BACKUP processed";
     }
 
     @Override
     public String restore(String pathname) throws RemoteException {
-        return null;
+        restoreController.StartRestoreRequest(pathname, "1.0");
+        return "BACKUP processed";
     }
 
     @Override
@@ -124,12 +94,11 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         }
 
         // Bind this object instance to the name "BackupPeer"
-        String url = "//localhost:"+ PORT +"/BackupPeer";
         ArrayList<Integer> accessPoints = new ArrayList<>();
-        String [] namingList = Naming.list(url);
+        String [] namingList = Naming.list(BASE_URL);
         for (String str: namingList) {
-            if (str.contains(url)) {
-                String substr = str.substring(url.length());
+            if (str.contains(BASE_URL)) {
+                String substr = str.substring(BASE_URL.length());
                 Integer access_point = Integer.valueOf(substr);
                 accessPoints.add(access_point);
             }
@@ -139,8 +108,8 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
         int i=0;
         while (accessPoints.contains(i)) ++i;
-        Naming.rebind(url+i, new Peer());
-        System.out.println("BackupPeer bound: "+url+i);
+        Naming.rebind(BASE_URL+i, new Peer());
+        System.out.println("BackupPeer bound: "+BASE_URL+i);
         //Naming.unbind(url+i);
         //System.out.println("BackupPeer unbound: "+url+i);
     }

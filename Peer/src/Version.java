@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * Created by andremachado on 07/03/2018.
  */
-public class Version {
+public class Version implements Serializable {
     private final int version;
     private final int subVersion;
 

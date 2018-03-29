@@ -1,6 +1,8 @@
+import java.rmi.RemoteException;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException {
         Peer peer = new Peer();
 
         if(args.length == 1){

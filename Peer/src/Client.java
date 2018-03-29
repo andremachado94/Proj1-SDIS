@@ -54,7 +54,7 @@ public class Client {
         // <peer_ap>
         // You should use as access point the name of the remote object providing the "testing" service.
         String peer_ap = args[0];
-        BackupInterface peer = (BackupInterface)Naming.lookup("//localhost/"+peer_ap);
+        BackupInterface peer = (BackupInterface)Naming.lookup(BackupInterface.BASE_URL+peer_ap);
 
         // <operation>
         // Is the operation the peer of the backup service must execute. It can be either the triggering of the
@@ -68,8 +68,8 @@ public class Client {
                 case "BACKUP": // e.g.: java Client AP0 BACKUP test1.pdf 3
                     if (args.length == 3 || args.length == 4){
                         String pathname = args[2];
-                        BackupFile file = new BackupFile(pathname);
                         int repDegree = args.length!=4 ? 1 : Integer.parseInt(args[3]);
+                        BackupFile file = new BackupFile(pathname);
                         peer.backup(file, repDegree); // pathname, rep_degree
                     }
                     else throw new IllegalArgumentException("BACKUP operation requires parameters <pathname> or <pathname> <rep_degree>");

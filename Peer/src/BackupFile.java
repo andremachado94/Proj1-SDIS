@@ -9,8 +9,10 @@ public class BackupFile implements Serializable { // TODO google serializable
     protected String pathname;
     protected long length;
     protected long lastModified;
+    protected int repDegree;
+    protected String filename;
+    protected Version version;
 
-    // TODO everyting must be done at constructor
     // BackupFile must not depend on File
     public BackupFile(){}
     public BackupFile(String pathname) throws IOException {
@@ -26,7 +28,9 @@ public class BackupFile implements Serializable { // TODO google serializable
         this.pathname = pathname;
         this.length = file.length();
         this.lastModified = file.lastModified();
-
+        this.filename = file.getName();
+        // TODO check to see if file is different from the ones backed-up. If so, increment the version
+        this.version = new Version("1.0");
     }
 
     public byte[] getDataBytes() {
@@ -43,5 +47,17 @@ public class BackupFile implements Serializable { // TODO google serializable
 
     public long getLastModified() {
         return lastModified;
+    }
+
+    public String getVersion() {
+        return version.toString();
+    }
+
+    public int GetRepDegree() {
+        return repDegree;
+    }
+
+    public String getFileName() {
+        return filename;
     }
 }
