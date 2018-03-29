@@ -4,6 +4,7 @@
 public class ControlMessageParser {
     public static int TYPE_UNKOWN = -1;
     public static int TYPE_STORED = 0;
+    public static int TYPE_GETCHUNK = 1;
 
     private Util u = new Util();
 
@@ -15,6 +16,9 @@ public class ControlMessageParser {
         String data[] = msg.split(" ");
         if(data[0].equalsIgnoreCase("STORED")){
             return TYPE_STORED;
+        }
+        else if(data[0].equalsIgnoreCase("GETCHUNK")){
+            return TYPE_GETCHUNK;
         }
         return TYPE_UNKOWN;
     }
@@ -83,5 +87,71 @@ public class ControlMessageParser {
         }
 
         return new StoredMessage(version,peerId,fileId,chunkNum);
+    }
+
+    public GetChunkMessage ParseGetChunkMessage(String msg) {
+        String unparsedData[] = msg.split(" ");
+        String unparsedMessageData[] = new String[6];
+
+        //Delete excessive white space
+
+        int j = 0;
+        for (int i = 0 ; i<unparsedData.length ; i++)
+        {
+            if(j >= 6){
+                System.out.println("Invalid (excessive) number of arguments in GETCHUNK\n");
+                return null;
+            }
+            else if(unparsedData[i].length() == 0){
+                continue;
+            }
+            else{
+                unparsedMessageData[j++] = unparsedData[i];
+            }
+        }
+        if(j != 6){
+            System.out.println("Invalid (defective) number of arguments in GETCHUNK\n");
+            return null;
+        }
+
+        if(u.MessageTypeValidator(unparsedMessageData[0]) != Util.TYPE_GETCHUNK){
+            System.out.println("Invalid type for GETCHUNK ");
+            return null;
+        }
+
+        Version version;
+
+        try {
+            version = new Version(unparsedData[1]);
+        }
+        catch (IllegalArgumentException e){
+            return null;
+        }
+
+
+        int peerId = Integer.parseInt(unparsedData[2]);
+
+        if(false){ //TODO
+            System.out.println("Invalid peerId number in GETCHUNK");
+            return null;
+        }
+
+
+
+        String fileId = unparsedData[3];
+
+        if(fileId.length() == 0){
+            System.out.println("Invalid fileId in GETCHUNK");
+            return null;
+        }
+
+        int chunkNum = Integer.parseInt(unparsedData[4]);
+
+        if(false){ //TODO
+            System.out.println("Invalid chunk number in GETCHUNK");
+            return null;
+        }
+
+        return new GetChunkMessage(version,peerId,fileId,chunkNum);
     }
 }
