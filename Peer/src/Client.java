@@ -3,12 +3,12 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-public class BackupClient {
+public class Client {
     protected static void printHelp(){
         System.out.println("HELP DIALOG");
         System.out.println("\tSyntax:");
-        System.out.println("\t\tjava BackupClient help");
-        System.out.println("\t\tjava BackupClient <peer_ap> <operation> <param1> <param2>");
+        System.out.println("\t\tjava Client help");
+        System.out.println("\t\tjava Client <peer_ap> <operation> <param1> <param2>");
         System.out.println();
         System.out.println("Operations available:");
         System.out.println("\tBACKUP : ");
@@ -17,32 +17,32 @@ public class BackupClient {
         System.out.println("\t\tSyntax:");
         System.out.println("\t\t\tjava BACKUP <pathname> <rep_degree>");
         System.out.println("\t\te.g.:");
-        System.out.println("\t\t\tjava BackupClient <peer_ap> BACKUP mynotebook.txt");
-        System.out.println("\t\t\tjava BackupClient <peer_ap> BACKUP mynotebook.txt 3");
+        System.out.println("\t\t\tjava Client <peer_ap> BACKUP mynotebook.txt");
+        System.out.println("\t\t\tjava Client <peer_ap> BACKUP mynotebook.txt 3");
         System.out.println();
         System.out.println("\tRESTORE : ");
         System.out.println("\t\tDescription: ");
         System.out.println("\t\t\tRestore a file, specifying its pathname.");
         System.out.println("\t\tSyntax:");
-        System.out.println("\t\t\tjava BackupClient <peer_ap> RESTORE <pathname>");
+        System.out.println("\t\t\tjava Client <peer_ap> RESTORE <pathname>");
         System.out.println("\t\te.g.:");
-        System.out.println("\t\t\tjava BackupClient <peer_ap> RESTORE mynotebook.txt");
+        System.out.println("\t\t\tjava Client <peer_ap> RESTORE mynotebook.txt");
         System.out.println();
         System.out.println("\tDELETE : ");
         System.out.println("\t\tDescription: ");
         System.out.println("\t\t\tDelete a file, specifying its pathname.");
         System.out.println("\t\tSyntax:");
-        System.out.println("\t\t\tjava BackupClient <peer_ap> DELETE <pathname>");
+        System.out.println("\t\t\tjava Client <peer_ap> DELETE <pathname>");
         System.out.println("\t\te.g.:");
-        System.out.println("\t\t\tjava BackupClient <peer_ap> DELETE mynotebook.txt");
+        System.out.println("\t\t\tjava Client <peer_ap> DELETE mynotebook.txt");
         System.out.println();
         System.out.println("\tRESTORE : ");
         System.out.println("\t\tDescription: ");
         System.out.println("\t\t\tRestore a file, specifying its pathname.");
         System.out.println("\t\tSyntax:");
-        System.out.println("\t\t\tjava BackupClient <peer_ap> RESTORE <pathname>");
+        System.out.println("\t\t\tjava Client <peer_ap> RESTORE <pathname>");
         System.out.println("\t\te.g.:");
-        System.out.println("\t\t\tjava BackupClient <peer_ap> RESTORE mynotebook.txt");
+        System.out.println("\t\t\tjava Client <peer_ap> RESTORE mynotebook.txt");
     }
 
     public static void main(String args[]) throws MalformedURLException,RemoteException,NotBoundException {
@@ -65,7 +65,7 @@ public class BackupClient {
         try {
             String operation = args[1].toUpperCase();
             switch (operation) {
-                case "BACKUP": // e.g.: java BackupClient AP0 BACKUP test1.pdf 3
+                case "BACKUP": // e.g.: java Client AP0 BACKUP test1.pdf 3
                     if (args.length == 3 || args.length == 4){
                         String pathname = args[2];
                         BackupFile file = new BackupFile(pathname);
@@ -74,15 +74,15 @@ public class BackupClient {
                     }
                     else throw new IllegalArgumentException("BACKUP operation requires parameters <pathname> or <pathname> <rep_degree>");
                     break;
-                case "RESTORE": // e.g.: java BackupClient AP0 RESTORE test1.pdf
+                case "RESTORE": // e.g.: java Client AP0 RESTORE test1.pdf
                     if (args.length == 3) peer.restore(args[2]); // pathname
                     else throw new IllegalArgumentException("RESTORE operation requires parameter <pathname>");
                     break;
-                case "DELETE": // e.g.: java BackupClient AP0 DELETE test1.pdf
+                case "DELETE": // e.g.: java Client AP0 DELETE test1.pdf
                     if (args.length == 3) peer.delete(args[2]); // pathname
                     else throw new IllegalArgumentException("DELETE operation requires parameter <pathname>");
                     break;
-                case "STATE": // e.g.: java BackupClient AP0 STATE
+                case "STATE": // e.g.: java Client AP0 STATE
                     if (args.length == 2) peer.state();
                     else throw new IllegalArgumentException("RESTORE operation requires no further parameters");
                     break;
@@ -92,7 +92,7 @@ public class BackupClient {
         }
         catch (Exception e){
             System.out.println(e.getMessage());
-            System.out.println("If you need to help, simply execute 'BackupClient help'.");
+            System.out.println("If you need to help, simply execute 'Client help'.");
         }
 
     }
