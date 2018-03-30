@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by andremachado on 16/03/2018.
  */
@@ -17,9 +20,7 @@ public class BackupReceiverThread extends Thread {
     @Override
     public void run() {
         putChunk = PutChunk.ParsePutChunkMessage(message);
-
-        System.out.println("DATA SIZE AFTER PARSE IS " + putChunk.getData().length + " bytes");
-
+        
         if(putChunk != null && this.id != putChunk.getPeerId()){
             //Sleep for rand time between 0 - 400 ms
             try {
@@ -28,22 +29,17 @@ public class BackupReceiverThread extends Thread {
                 e.printStackTrace();
             }
 
+            //Check number of peers that stored the chunk
+            List<Integer> peers = controlModule.GetPeersThatStored(putChunk.getFileId(), putChunk.getChunkNumber());
+            if(peers != null && peers.size() >= putChunk.getRepDegree() && !peers.contains(id))
+                return;
 
-
-
-
+            //Save chunk
             FileManager.WriteChunckToBinFile(putChunk, this.id);
-            //Check control - enhancement - not needed for now
-            //TODO
-
-            //Store chunk
-            //TODO
-
 
             //Send STORED control message
             byte[] msg = putChunk.GetStoredMessage(id).getBytes();
             controlModule.SendControlMessage(msg);
-            //TODO call control sender method
         }
     }
 }

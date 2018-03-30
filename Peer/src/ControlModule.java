@@ -80,7 +80,7 @@ public class ControlModule {
                 else if(messageType == ControlMessageParser.TYPE_DELETE){
                     DeleteMessage deleteMessage;
                     if((deleteMessage = controlMessageParser.ParseDeleteMessage(new String(msg))) != null) {
-                        DeleteFileRecords(Util.GetCleanId(deleteMessage.GetFileId()));
+                        DeleteFileRecords(deleteMessage.GetFileId(), deleteMessage.GetVersion());
                     }
                     else{
                         System.out.println("Controlo recebido tipo DELETE");
@@ -125,7 +125,8 @@ public class ControlModule {
 
     }
 
-    private void DeleteFileRecords(String cleanId){
+    private void DeleteFileRecords(String fileId, String version){
+        String cleanId = Util.GetCleanId(fileId);
         final String dir = System.getProperty("user.dir");
         final String filedir = new File(dir).getParent()+"/"+"backup_chunks"+"/"+id+"/"+cleanId;
 
@@ -135,11 +136,28 @@ public class ControlModule {
             String files[] = folder.list();
 
             for (String temp : files) {
-                File fileDelete = new File(folder, temp);
-                fileDelete.delete();
+                System.out.println("DELETING: " + temp);
+                String chunkNumber = temp.split("\\.")[0];
+                if(chunkNumber != null) {
+                    try {
+                        int n = Integer.parseInt(chunkNumber);
+                        File fileDelete = new File(folder, temp);
+                        fileDelete.delete();
+                        SendControlMessage(RemovedMessage.GetRemovedMessage(version, id, fileId, n).getBytes());
+                    } catch (Exception e) {
+                        return;
+                    }
+                }
             }
 
             folder.delete();
         }
+    }
+
+    public List<Integer> GetPeersThatStored(String fileId, int chunkNumber) {
+        if(storedMap.containsKey(fileId + "_" + chunkNumber)){
+            return storedMap.get(fileId + "_" + chunkNumber);
+        }
+        return null;
     }
 }

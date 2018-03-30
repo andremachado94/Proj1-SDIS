@@ -22,4 +22,8 @@ public class DeleteMessage {
     public String GetFileId() {
         return fileId;
     }
+
+    public String GetVersion() {
+        return version.toString();
+    }
 }
