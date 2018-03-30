@@ -38,21 +38,7 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::\n");
     }
 
-<<<<<<< HEAD
-        //TODO peer_id = random number betwee 0 and a lot
-        Random rand = new Random();
-        peer_id = rand.nextInt(100000);
-
-        System.out.println("My id is: " + peer_id);
-
-
-        controlModule = new ControlModule(mcc_ip, mcc_port, peer_id);
-        backupController = new BackupController(mbc_ip, mbc_port, peer_id, controlModule);
-        restoreController = new RestoreController(mrc_ip, mrc_port, peer_id, controlModule);
-
-        controlModule.SetRestoreController(restoreController);
-
-=======
+    
     @Deprecated
     public Peer() throws RemoteException {
         super();
@@ -65,7 +51,9 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         this.controlModule = new ControlModule(mcc_ip, mcc_port, restoreController);
         this.backupController = new BackupController(mbc_ip, mbc_port, serverId, controlModule);
         this.restoreController = new RestoreController(mrc_ip, mrc_port, serverId, controlModule);
->>>>>>> origin/master
+    
+        controlModule.SetRestoreController(restoreController);
+
     }
 
     @Deprecated
