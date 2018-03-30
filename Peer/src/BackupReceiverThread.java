@@ -20,7 +20,7 @@ public class BackupReceiverThread extends Thread {
     @Override
     public void run() {
         putChunk = PutChunk.ParsePutChunkMessage(message);
-        
+
         if(putChunk != null && this.id != putChunk.getPeerId()){
             //Sleep for rand time between 0 - 400 ms
             try {

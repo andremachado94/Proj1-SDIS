@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Created by andremachado on 28/03/2018.
@@ -41,22 +42,49 @@ public class RestoreInitializer {
             ExecutorService executor = Executors.newFixedThreadPool(5);//creating a pool of 5 threads
             //TODO Change 3 to 1000000
             for (int i = 0; i < 1000000; i++) {
+                int finalI = i;
+                Runnable runnable = new Runnable(){
+                    @Override
+                    public void run() {
+                        long sleepTime = 50;
+                        int sleepTimes = 0;
+                        int chunkNum = finalI;
+                        System.out.println("Starting request " + chunkNum);
+                        while (sleepTimes < 5 && !restoredChunks.containsKey(Util.GetCleanId(fileId) + "_" + chunkNum)) {
+                            controlModule.SendRestoreRequest(fileId, version, chunkNum);
+                            try {
+                                Thread.sleep((long) sleepTime);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            sleepTime *=2;
+                            sleepTimes ++;
+                        }
+                        if(sleepTimes == 5) {
+                            ongoingRestore.put(Util.GetCleanId(fileId), -2);
+                            System.out.println("Finished request " + chunkNum + " - chunk not received");
+                        }
+                        else
+                            System.out.println("Finished request " + chunkNum + " - chunk received");
 
-                System.out.println("Requester thread number " + i);
-                //TODO
-                controlModule.SendRestoreRequest(fileId, version, i);
+                    }
+                };
+
+                Future<?> runnableFuture = executor.submit(runnable);
 
 
                 try {
-                    Thread.sleep((long) 50);
+                    Thread.sleep((long) 70);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 if(ongoingRestore.get(Util.GetCleanId(fileId)) != -1){
+                    executor.shutdown();
                     return;
                 }
 
             }
+
             executor.shutdown();
             while (!executor.isTerminated()) {   }
 
@@ -75,7 +103,10 @@ public class RestoreInitializer {
                 e.printStackTrace();
             }
             if(ongoingRestore.get(Util.GetCleanId(fileId)) != -1){
-                System.out.println("SAVING FILE");
+                System.out.println("SAVING FILE\n\tnNumber of Chunks: "+ongoingRestore.get(Util.GetCleanId(fileId)));
+
+                if(ongoingRestore.get(Util.GetCleanId(fileId)) == -2)
+                    return null;
 
                 return SaveFile(Util.GetCleanId(fileId), fileName);
             }
@@ -112,6 +143,9 @@ public class RestoreInitializer {
             int chunks = ongoingRestore.get(fileId);
 
             for(int i = 0 ; i <= chunks ; i++){
+                if(!restoredChunks.containsKey(fileId + "_" + i)){
+                    return null;
+                }
                 if(data == null){
                     data = restoredChunks.get(fileId + "_" + i);
                 }
