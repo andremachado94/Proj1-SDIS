@@ -1,3 +1,7 @@
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +41,10 @@ public class ControlModule {
         channel.SendControlMessage(msg);
     }
 
+    public void StartDeleteRequest(String fileName, String version){
+        SendControlMessage(DeleteMessage.GetDeleteMessage(version, id,  fileName).getBytes());
+    }
+
     private void InitializeControlChannelListener(){
         channel.SetOnMessageReceivedListener(new OnMessageReceivedListener() {
             @Override
@@ -67,6 +75,16 @@ public class ControlModule {
                     else{
                         System.out.println("Controlo recebido tipo GETCHUNK");
                         System.out.println("Erro a processar mensagem tipo GETCHUNK");
+                    }
+                }
+                else if(messageType == ControlMessageParser.TYPE_DELETE){
+                    DeleteMessage deleteMessage;
+                    if((deleteMessage = controlMessageParser.ParseDeleteMessage(new String(msg))) != null) {
+                        DeleteFileRecords(Util.GetCleanId(deleteMessage.GetFileId()));
+                    }
+                    else{
+                        System.out.println("Controlo recebido tipo DELETE");
+                        System.out.println("Erro a processar mensagem tipo DELETE");
                     }
                 }
                 else{
@@ -105,5 +123,23 @@ public class ControlModule {
         }
 */
 
+    }
+
+    private void DeleteFileRecords(String cleanId){
+        final String dir = System.getProperty("user.dir");
+        final String filedir = new File(dir).getParent()+"/"+"backup_chunks"+"/"+id+"/"+cleanId;
+
+        File folder = new File(filedir);
+
+        if(folder.exists() && folder.isDirectory()) {
+            String files[] = folder.list();
+
+            for (String temp : files) {
+                File fileDelete = new File(folder, temp);
+                fileDelete.delete();
+            }
+
+            folder.delete();
+        }
     }
 }

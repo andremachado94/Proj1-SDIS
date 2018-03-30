@@ -1,7 +1,7 @@
 import java.rmi.RemoteException;
 
-@SuppressWarnings( "deprecation" )
 public class Main {
+
     public static void main(String[] args) throws RemoteException {
         Peer peer = new Peer();
 
@@ -10,6 +10,9 @@ public class Main {
         }
         else if(args.length == 2){
             peer.StartRestoreRequest(args[0], "1.1");
+        }
+        else if(args.length == 3){
+            peer.StartDeleteRequest(args[0], "1.1");
         }
     }
 }

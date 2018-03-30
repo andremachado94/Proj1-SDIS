@@ -4,7 +4,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class Client {
-    private static void printHelp(){
+    protected static void printHelp(){
         System.out.println("HELP DIALOG");
         System.out.println("\tSyntax:");
         System.out.println("\t\tjava Client help");
@@ -70,20 +70,20 @@ public class Client {
                         String pathname = args[2];
                         int repDegree = args.length!=4 ? 1 : Integer.parseInt(args[3]);
                         BackupFile file = new BackupFile(pathname);
-                        System.out.println(peer.backup(file, repDegree)); // pathname, rep_degree
+                        peer.backup(file, repDegree); // pathname, rep_degree
                     }
                     else throw new IllegalArgumentException("BACKUP operation requires parameters <pathname> or <pathname> <rep_degree>");
                     break;
                 case "RESTORE": // e.g.: java Client AP0 RESTORE test1.pdf
-                    if (args.length == 3) System.out.println(peer.restore(args[2])); // pathname
+                    if (args.length == 3) peer.restore(args[2]); // pathname
                     else throw new IllegalArgumentException("RESTORE operation requires parameter <pathname>");
                     break;
                 case "DELETE": // e.g.: java Client AP0 DELETE test1.pdf
-                    if (args.length == 3) System.out.println(peer.delete(args[2])); // pathname
+                    if (args.length == 3) peer.delete(args[2]); // pathname
                     else throw new IllegalArgumentException("DELETE operation requires parameter <pathname>");
                     break;
                 case "STATE": // e.g.: java Client AP0 STATE
-                    if (args.length == 2) System.out.println(peer.state());
+                    if (args.length == 2) peer.state();
                     else throw new IllegalArgumentException("RESTORE operation requires no further parameters");
                     break;
                 default:
@@ -91,8 +91,8 @@ public class Client {
             }
         }
         catch (Exception e){
-            System.err.println(e.getMessage());
-            System.err.println("If you need to help, simply execute 'Client help'.");
+            System.out.println(e.getMessage());
+            System.out.println("If you need to help, simply execute 'Client help'.");
         }
 
     }
