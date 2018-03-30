@@ -54,7 +54,7 @@ public class Client {
         // <peer_ap>
         // You should use as access point the name of the remote object providing the "testing" service.
         String peer_ap = args[0];
-        BackupInterface peer = (BackupInterface)Naming.lookup(BackupInterface.BASE_URL+peer_ap);
+        BackupInterface peer = (BackupInterface)Naming.lookup(peer_ap);
 
         // <operation>
         // Is the operation the peer of the backup service must execute. It can be either the triggering of the
