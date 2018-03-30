@@ -23,7 +23,7 @@ public class RestoreReceiverThread extends Thread{
             if(!restoreInitializer.ChunkExists(Util.GetCleanId(chunk.getFileId())+"_"+chunk.getChunkNumber())){
                 restoreInitializer.AddChunk(Util.GetCleanId(chunk.getFileId())+"_"+chunk.getChunkNumber() , chunk.getData());
 
-                if(chunk.getData().length < 63000){
+                if(chunk.getData().length < 64000){
                     restoreInitializer.FinishRequest(Util.GetCleanId(chunk.getFileId()), chunk.getChunkNumber());
                 }
             }

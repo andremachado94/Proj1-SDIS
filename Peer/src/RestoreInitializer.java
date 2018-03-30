@@ -109,7 +109,6 @@ public class RestoreInitializer {
     public byte[] SaveFile(String fileId, String fileName){
         byte [] data = null;
         if(ongoingRestore.containsKey(fileId)){
-            System.out.println("HM Contains key: " + fileId);
             int chunks = ongoingRestore.get(fileId);
 
             for(int i = 0 ; i <= chunks ; i++){

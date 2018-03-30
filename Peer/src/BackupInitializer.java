@@ -26,7 +26,7 @@ public class BackupInitializer extends Thread{
     public void StartBackupRequest(String filePath, String version, int repDeg, String fileName){
         Thread backupRequest = new Thread(() -> {
             FileManager fm = new FileManager();
-            ArrayList<byte[]> data = FileManager.SliceFile(filePath, fm.PreSize("backup", id));
+            ArrayList<byte[]> data = FileManager.SliceFile(filePath);
             //TODO put msg in the right format - wont work like this ??
 
 

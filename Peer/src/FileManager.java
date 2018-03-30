@@ -16,19 +16,12 @@ public class FileManager {
     private int chunkSize;
 
 
-    public int PreSize(String type, int id){
-        return  u.getCRLF_CRLF().getBytes().length +
-                type.getBytes().length +
-                Integer.toString(id).getBytes().length +
-                45;
-    }
 
-
-    public static ArrayList<byte[]> SliceFile(String path, int msgSize){
+    public static ArrayList<byte[]> SliceFile(String path){
 
         ArrayList<byte[]> slicedFile = new ArrayList<byte[]>();
 
-        int chunkSize = MAX_CHUNK_SIZE - msgSize;
+        int chunkSize = MAX_CHUNK_SIZE;
 
         if(chunkSize > MIN_CHUNK_SIZE && chunkSize <= MAX_CHUNK_SIZE) {
             try {
