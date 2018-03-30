@@ -10,44 +10,19 @@ import java.util.Arrays;
 import java.util.Date;
 
 //@DatabaseTable(tableName = "chunks")
-public class Chunk {
+public class PutChunk {
 
     private static Util u = new Util();
-
-
-    //@DatabaseField(generatedId = true)
-    private int id; //id, no hash needed (autoinc)
-    // When an Order object is passed to create and stored to the database,
-    // the generated identity value is returned by the database and set on
-    // the object by ORMLite. In the majority of database types, the
-    // generated value starts at 1 and increases by 1 every time a new row
-    // is inserted into the table.
-
-    //@DatabaseField(canBeNull = false)
     private String fileId; //hash
-
-    //@DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE)
     private Version version;
-
-    //@DatabaseField(canBeNull = false)
     private int chunkNumber;
-
-    //@DatabaseField(canBeNull = false)
     private int repDegree;
-
-    //@DatabaseField(dataType = DataType.DATE)
     private Date date;
-
-    //@DatabaseField(dataType = DataType.BYTE_ARRAY)
     private byte[] data;
-
     private int peerId;
 
-    public Chunk(){
-        // ORMLite needs a no-arg constructor
-    }
 
-    public Chunk(Version version, int senderId, String fileId, int chunkNumber, int repDegree, byte[] data){
+    public PutChunk(Version version, int senderId, String fileId, int chunkNumber, int repDegree, byte[] data){
         this.version = version;
         this.peerId = senderId;
         this.fileId = fileId;
@@ -115,26 +90,15 @@ public class Chunk {
         return c;
     }
 
-    public static String GetPutChunkMessage(String chunk,int chunkNumber, String version, int peerId, int repDegree){
-
-        if(version == null){
-            version = "1.0"; //default version
-        }
-
-        //TODO hash function
-        String fileId = "CCC";
-
-        return "PUTCHUNK " + version + " " + peerId + " " + fileId + " " + chunkNumber + " " + repDegree + " " + u.CRLF_CRLF + chunk;
-    }
-
 
     //TODO change this to constructor??
     //TODO when return null stop thread
-    public static Chunk ParsePutChunkMessage(byte[] receivedData){
+    public static PutChunk ParsePutChunkMessage(byte[] receivedData){
 
         StreamSearcher streamSearcher = new StreamSearcher(u.CRLF_CRLF.getBytes());
         byte data[];
 
+        //noinspection Duplicates
         try {
             long index = streamSearcher.search(receivedData);
             if(index == -1){
@@ -228,15 +192,9 @@ public class Chunk {
             System.out.println("Invalid replication degree in PUTCHUNK");
             return null;
         }
-/*
-        if((data = u.ParseDataString(crlfSplit[1])) == null){
-            System.out.println("Invalid data field in PUTCHUNK");
-            return null;
-        }
-*/
 
 
-        return new Chunk(version, peerId ,fileId, chunkNum, repDegree, data);
+        return new PutChunk(version, peerId ,fileId, chunkNum, repDegree, data);
     }
 
 

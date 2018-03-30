@@ -2,43 +2,43 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
  * Created by andremachado on 02/03/2018.
  */
 public class Peer extends UnicastRemoteObject implements BackupInterface {
-    public static final int CHUNK_SIZE = 64000; //64 KBytes, 64000 Bytes
-    public static final int TYPE_BACKUP = 1;
-    public static final int TYPE_RESTORE = 2;
-    public static final int TYPE_DELETE = 3;
-    public static final int TYPE_RECLAIM = 4;
-    public static final int TYPE_ERROR = -1;
+    private Version protocolVersion;
+    private int serverId;
+    private int accessPoint;
+    private ControlModule controlModule;
+    private BackupController backupController;
+    private RestoreController restoreController;
 
-    private MulticastBackupChannel mbc;
-    private MulticastControlChannel mcc;
-    private MulticastRestoreChannel mrc;
-
-    private String mbc_ip = "239.0.0.0";
-    private int mbc_port = 1234;
-
-    private String mcc_ip = "239.1.0.0";
-    private int mcc_port = 5678;
-
-    private String mrc_ip = "239.2.0.0";
-    private int mrc_port = 5618;
-
-    private int peer_id;
-    ControlModule controlModule;
-    BackupController backupController;
-    RestoreController restoreController;
-
-    public Peer() throws RemoteException {
+    // protocol_version, server_id, access_point, mc_ip:port, mdb_ip:port, mdr_ip:port
+    private Peer(String protocolVersion, int serverId, int accessPoint,
+                String mcc_ip, int mcc_port, String mbc_ip, int mbc_port, String mrc_ip, int mrc_port
+    ) throws RemoteException {
         super(); // required to avoid the 'rmic' step
+        this.protocolVersion = new Version(protocolVersion);
+        this.serverId = serverId;
+        this.accessPoint = accessPoint;
+        this.controlModule = new ControlModule(mcc_ip, mcc_port, restoreController);
+        this.backupController = new BackupController(mbc_ip, mbc_port, serverId, controlModule);
+        this.restoreController = new RestoreController(mrc_ip, mrc_port, serverId, controlModule);
 
+        System.out.println("\n\n\n::::::::::::: NEW PEER CREATED :::::::::::::");
+        System.out.println("\tProtocol Version: "+protocolVersion);
+        System.out.println("\t       Server ID: "+serverId);
+        System.out.println("\t    Access Point: "+accessPoint);
+        System.out.println("\t     MCC Address: "+mcc_ip+":"+mcc_port);
+        System.out.println("\t     MBC Address: "+mbc_ip+":"+mbc_port);
+        System.out.println("\t     MRC Address: "+mrc_ip+":"+mrc_port);
+        System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+    }
+
+<<<<<<< HEAD
         //TODO peer_id = random number betwee 0 and a lot
         Random rand = new Random();
         peer_id = rand.nextInt(100000);
@@ -46,56 +46,76 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         System.out.println("My id is: " + peer_id);
 
 
-        controlModule = new ControlModule(mcc_ip, mcc_port, restoreController);
-        controlModule = new ControlModule(mcc_ip, mcc_port);
+        controlModule = new ControlModule(mcc_ip, mcc_port, peer_id);
         backupController = new BackupController(mbc_ip, mbc_port, peer_id, controlModule);
         restoreController = new RestoreController(mrc_ip, mrc_port, peer_id, controlModule);
 
+        controlModule.SetRestoreController(restoreController);
+
+=======
+    @Deprecated
+    public Peer() throws RemoteException {
+        super();
+        String mcc_ip = "239.0.0.0";
+        int mcc_port = 1234;
+        String mbc_ip = "239.1.0.0";
+        int mbc_port = 1234;
+        String mrc_ip = "239.2.0.0";
+        int mrc_port = 1234;
+        this.controlModule = new ControlModule(mcc_ip, mcc_port, restoreController);
+        this.backupController = new BackupController(mbc_ip, mbc_port, serverId, controlModule);
+        this.restoreController = new RestoreController(mrc_ip, mrc_port, serverId, controlModule);
+>>>>>>> origin/master
     }
 
+    @Deprecated
     public void StartBackupRequest(String filePath, String version, int repDeg, String fileName){
         backupController.StartBackupRequest(filePath, version, repDeg, fileName);
     }
 
+    @Deprecated
     public void StartRestoreRequest(String fileName, String version) {
-        restoreController.StartRestoreRequest(fileName, version);
+        byte[] file = restoreController.StartRestoreRequest(fileName, version);
     }
 
     @Override
-    public String backup(BackupFile file, int repDegree) throws RemoteException {
+    public String backup(BackupFile file, int repDegree) {
         backupController.StartBackupRequest(file.getPathname(), file.getVersion(), file.GetRepDegree(), file.getFileName());
         return "BACKUP processed";
     }
 
     @Override
-    public String restore(String pathname) throws RemoteException {
+    public String restore(String pathname) {
         restoreController.StartRestoreRequest(pathname, "1.0");
         return "BACKUP processed";
     }
 
     @Override
-    public String delete(String pathname) throws RemoteException {
+    public String delete(String pathname) {
         return null;
     }
 
     @Override
-    public String state() throws RemoteException {
+    public String state() {
         return null;
     }
 
+    private String getUrl(){
+        return BackupInterface.BASE_URL + accessPoint;
+    }
+
     public static void main(String args[]) throws Exception {
-        System.out.println("RMI server started");
-
+        // get rmi registry using default PORT
         try {
-            // previously run in terminal: rmiregistry <PORT>
-            // default PORT is 1099
             LocateRegistry.getRegistry(PORT);
-            System.out.println("Java RMI registry gotten.");
         } catch (RemoteException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
+            System.err.println("Please start rmiregistry beforehand.");
+            throw e;
         }
+        System.out.println("Java RMI registry gotten.");
 
-        // Bind this object instance to the name "BackupPeer"
+        // crawl through this object instance to the name "BackupPeer"
         ArrayList<Integer> accessPoints = new ArrayList<>();
         String [] namingList = Naming.list(BASE_URL);
         for (String str: namingList) {
@@ -107,12 +127,47 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         }
         System.out.println("Already existent Access Points: "+accessPoints);
 
+        // initialize Peer
+        Peer peer;
+        String protocolVersion;
+        int serverId;
+        int accessPoint;
+        String mcc_ip, mbc_ip, mrc_ip;
+        int mcc_port, mbc_port, mrc_port;
+        // initialize automatically
+        if (args.length == 0){
+            protocolVersion = "1.0";
+            serverId = new Random().nextInt(100000);
+            accessPoint = 0;
+            while (accessPoints.contains(accessPoint)) ++accessPoint;
+            mcc_ip = "239.0.0.0";
+            mcc_port = 1234;
+            mbc_ip = "239.1.0.0";
+            mbc_port = 1234;
+            mrc_ip = "239.2.0.0";
+            mrc_port = 1234;
 
-        int i=0;
-        while (accessPoints.contains(i)) ++i;
-        Naming.rebind(BASE_URL+i, new Peer());
-        System.out.println("BackupPeer bound: "+BASE_URL+i);
-        //Naming.unbind(url+i);
-        //System.out.println("BackupPeer unbound: "+url+i);
+        }
+        // initialize manually
+        else if (args.length == 9){
+            protocolVersion = args[0];
+            serverId = Integer.parseInt(args[1]);
+            accessPoint = Integer.parseInt(args[2]);
+            mcc_ip = args[3];
+            mcc_port = Integer.parseInt(args[4]);
+            mbc_ip = args[5];
+            mbc_port = Integer.parseInt(args[6]);
+            mrc_ip = args[7];
+            mrc_port = Integer.parseInt(args[8]);
+        }
+        // error: invalid argument number
+        else {
+            throw new IllegalArgumentException("Invalid Arguments number: different than 9.");
+        }
+
+        // bind!
+        peer = new Peer(protocolVersion, serverId, accessPoint, mcc_ip, mcc_port, mbc_ip, mbc_port, mrc_ip, mrc_port);
+        Naming.rebind(peer.getUrl(), peer);
+        //Naming.unbind(peer.getUrl());
     }
 }

@@ -1,12 +1,10 @@
-import java.net.DatagramPacket;
-
 /**
  * Created by andremachado on 16/03/2018.
  */
 public class BackupReceiverThread extends Thread {
 
     private byte[] message;
-    private Chunk chunk;
+    private PutChunk putChunk;
     private int id;
     private ControlModule controlModule;
 
@@ -18,11 +16,11 @@ public class BackupReceiverThread extends Thread {
 
     @Override
     public void run() {
-        chunk = Chunk.ParsePutChunkMessage(message);
+        putChunk = PutChunk.ParsePutChunkMessage(message);
 
-        System.out.println("DATA SIZE AFTER PARSE IS " + chunk.getData().length + " bytes");
+        System.out.println("DATA SIZE AFTER PARSE IS " + putChunk.getData().length + " bytes");
 
-        if(chunk != null && this.id != chunk.getPeerId()){
+        if(putChunk != null && this.id != putChunk.getPeerId()){
             //Sleep for rand time between 0 - 400 ms
             try {
                 Thread.sleep((long)(Math.random() * 400));
@@ -34,7 +32,7 @@ public class BackupReceiverThread extends Thread {
 
 
 
-            FileManager.WriteChunckToBinFile(chunk, this.id);
+            FileManager.WriteChunckToBinFile(putChunk, this.id);
             //Check control - enhancement - not needed for now
             //TODO
 
@@ -43,7 +41,7 @@ public class BackupReceiverThread extends Thread {
 
 
             //Send STORED control message
-            byte[] msg = chunk.GetStoredMessage(id).getBytes();
+            byte[] msg = putChunk.GetStoredMessage(id).getBytes();
             controlModule.SendControlMessage(msg);
             //TODO call control sender method
         }

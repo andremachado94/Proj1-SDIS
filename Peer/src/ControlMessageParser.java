@@ -111,6 +111,7 @@ public class ControlMessageParser {
         }
         if(j != 6){
             System.out.println("Invalid (defective) number of arguments in GETCHUNK\n");
+            System.out.println(msg);
             return null;
         }
 

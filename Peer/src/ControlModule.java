@@ -13,14 +13,23 @@ public class ControlModule {
     private static Map<String, List<Integer>> storedMap = null;
     String ip;
     int port;
+    private int id;
 
-    public ControlModule(String ip, int port, RestoreController restoreController){
+    public void SetRestoreController(RestoreController restoreController) {
+        this.restoreController = restoreController;
+    }
+
+    private RestoreController restoreController;
+
+    public ControlModule(String ip, int port, int id){
         storedMap = new ConcurrentHashMap<String, List<Integer>>();
         channel = new MulticastControlChannel(ip, port);
         this.ip = ip;
         this.port = port;
+        this.id = id;
         InitializeControlChannelListener();
     }
+
 
     //TODO define criteria to clean Maps
 
@@ -51,11 +60,13 @@ public class ControlModule {
                 else if(messageType == ControlMessageParser.TYPE_GETCHUNK){
                     GetChunkMessage getChunkMessage;
                     if((getChunkMessage = controlMessageParser.ParseGetChunkMessage(new String(msg))) != null){
-
+                        System.out.println("Received GETCHUNK msg: " + getChunkMessage.GetFileId());
+                        System.out.println("Clean Id: " + Util.GetCleanId(getChunkMessage.GetFileId()));
+                        restoreController.SendChunkMessage(getChunkMessage);
                     }
                     else{
-                        System.out.println("Controlo recebido tipo STORED");
-                        System.out.println("Erro a processar mensagem tipo STORED");
+                        System.out.println("Controlo recebido tipo GETCHUNK");
+                        System.out.println("Erro a processar mensagem tipo GETCHUNK");
                     }
                 }
                 else{
@@ -69,16 +80,30 @@ public class ControlModule {
 
     public boolean ReceivedStoredMessages(String fileId, int chunkNumber, int repDeg) {
         String key = fileId + "_" + chunkNumber;
-        System.out.print("key: " + key);
         if(storedMap.containsKey(key)) {
-            System.out.println(" found " + storedMap.get(key).size() + " times");
             if (storedMap.get(key).size() >= repDeg)
                 return true;
         }
-        System.out.println(" not found");
         return false;
     }
 
     public void SendRestoreRequest(String fileId, String version, int i) {
+        GetChunkMessage chunk = new GetChunkMessage(new Version(version), id, fileId, i);
+        System.out.println();
+        SendControlMessage(chunk.GetMessage().getBytes());
+
+        long waitTime = 200;
+/*
+        while(!controlModule.ReceivedStoredMessages(Util.GetCleanId(new String(fileId)), chunkNumber, repDeg)){
+            channel.SendBackupRequest(msg);
+            try {
+                Thread.sleep(waitTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            waitTime*=2;
+        }
+*/
+
     }
 }

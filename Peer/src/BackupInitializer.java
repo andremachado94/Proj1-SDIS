@@ -33,7 +33,7 @@ public class BackupInitializer extends Thread{
 
             ExecutorService executor = Executors.newFixedThreadPool(5);//creating a pool of 5 threads
             for (int i = 0; i < data.size(); i++) {
-                byte[] msg = Chunk.GetPutChunkMessage(data.get(i), i, version, id, repDeg, fileName);
+                byte[] msg = PutChunk.GetPutChunkMessage(data.get(i), i, version, id, repDeg, fileName);
                 Runnable worker = new BackupSenderThread(msg, i, fileName, repDeg, channel, controlModule);
                 executor.execute(worker);
                 try {

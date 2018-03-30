@@ -34,6 +34,6 @@ public class GetChunkMessage {
     }
 
     public String GetMessage(){
-        return "GETCHUNK " + version.toString() + " " + peerId + " " + fileId + " " + chunkNumber + u.getCRLF_CRLF();
+        return "GETCHUNK " + version.toString() + " " + peerId + " " + fileId + " " + chunkNumber + " " + u.getCRLF_CRLF();
     }
 }
