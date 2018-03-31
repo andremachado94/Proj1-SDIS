@@ -19,7 +19,9 @@ public class BackupReceiverThread extends Thread {
 
     @Override
     public void run() {
+        System.out.println("BackupReceiverThreadStarted");
         putChunk = PutChunk.ParsePutChunkMessage(message);
+        System.out.println("ParsePUtChunkMessage finished");
 
         if(putChunk != null && this.id != putChunk.getPeerId()){
             //Sleep for rand time between 0 - 400 ms
@@ -31,15 +33,19 @@ public class BackupReceiverThread extends Thread {
 
             //Check number of peers that stored the chunk
             List<Integer> peers = controlModule.GetPeersThatStored(putChunk.getFileId(), putChunk.getChunkNumber());
-            if(peers != null && peers.size() >= putChunk.getRepDegree() && !peers.contains(id))
+            if(peers != null && peers.size() >= putChunk.getRepDegree() && !peers.contains(id)) {
+                System.out.println("UPS");
                 return;
+            }
 
             //Save chunk
+            System.out.println("Saving");
             FileManager.WriteChunckToBinFile(putChunk, this.id);
 
             //Send STORED control message
             byte[] msg = putChunk.GetStoredMessage(id).getBytes();
             controlModule.SendControlMessage(msg);
         }
+        else {}
     }
 }

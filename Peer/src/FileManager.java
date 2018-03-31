@@ -89,7 +89,7 @@ public class FileManager {
 
 
         try {
-            filePathString = new File(dir).getParent()+"/"+"backup_chunks"+"/"+id+"/"+ putChunk.getFileId();
+            filePathString = new File(dir).getParent()+"/"+"backup_chunks"+"/"+id+"/"+ Util.GetCleanId(putChunk.getFileId());
             System.out.println("PATH: " + filePathString);
 
             File f = new File(new File(dir).getParent()+"/"+"backup_chunks");

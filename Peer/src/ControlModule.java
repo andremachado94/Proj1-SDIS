@@ -107,7 +107,7 @@ public class ControlModule {
 
     public void SendRestoreRequest(String fileId, String version, int i) {
         GetChunkMessage chunk = new GetChunkMessage(new Version(version), id, fileId, i);
-        System.out.println();
+        System.out.println("Sending GetChunk:\n" + chunk.GetMessage());
         SendControlMessage(chunk.GetMessage().getBytes());
 
         long waitTime = 200;

@@ -45,9 +45,9 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         String mcc_ip = "239.0.0.0";
         int mcc_port = 1234;
         String mbc_ip = "239.1.0.0";
-        int mbc_port = 1234;
+        int mbc_port = 3456;
         String mrc_ip = "239.2.0.0";
-        int mrc_port = 1234;
+        int mrc_port = 5678;
         this.controlModule = new ControlModule(mcc_ip, mcc_port, serverId);
         this.backupController = new BackupController(mbc_ip, mbc_port, serverId, controlModule);
         this.restoreController = new RestoreController(mrc_ip, mrc_port, serverId, controlModule);
@@ -61,7 +61,7 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     @Deprecated
     public void StartRestoreRequest(String fileName, String version) {
-        byte[] file = restoreController.StartRestoreRequest(fileName, version);
+        byte[] data = restoreController.StartRestoreRequest(fileName, version);
     }
 
     @Deprecated
@@ -71,14 +71,14 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     @Override
     public String backup(BackupFile file, int repDegree) {
-        backupController.StartBackupRequest(file.getPathname(), file.getVersion(), file.GetRepDegree(), file.getFileName());
-        return "BACKUP processed";
+        backupController.StartBackupRequest(file.getPathname(), file.getVersion(), repDegree, file.getFileName());
+        return "BACKUP processed - file: " + file.getFileName();
     }
 
     @Override
     public String restore(String pathname) {
-        restoreController.StartRestoreRequest(pathname, "1.0");
-        return "BACKUP processed";
+        byte[] data = restoreController.StartRestoreRequest(pathname, "1.0");
+        return "Restored:\n"+ new String(data);
     }
 
     @Override
@@ -168,4 +168,5 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         Naming.rebind(peer.getUrl(), peer);
         //Naming.unbind(peer.getUrl());
     }
+
 }

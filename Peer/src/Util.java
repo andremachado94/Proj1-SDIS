@@ -45,10 +45,15 @@ public class Util {
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance("SHA-256");
-            digest.update(text.getBytes());
-            //byte[] hash = digest.digest(text.getBytes(StandardCharsets.US_ASCII));
+            digest.update(text.getBytes(StandardCharsets.US_ASCII));
 
-            return digest.digest();
+            String hash = new String(digest.digest());
+            System.out.println("\t\t\tBefore replace: " + hash);
+            hash = hash.replaceAll("\\s+", "");
+            System.out.println("\t\t\tAfter replace: " + hash);
+
+
+            return hash.getBytes(StandardCharsets.US_ASCII);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
@@ -66,7 +71,13 @@ public class Util {
             digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(text.getBytes(StandardCharsets.US_ASCII));
 
-            return new String(hash);
+            String val = new String(hash);
+
+            System.out.println("\t\t\tBefore replace: " + val);
+            val = val.replaceAll("\\s+", "");
+            System.out.println("\t\t\tAfter replace: " + val);
+
+            return val;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;

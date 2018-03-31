@@ -27,9 +27,8 @@ public class BackupInitializer extends Thread{
         Thread backupRequest = new Thread(() -> {
             FileManager fm = new FileManager();
             ArrayList<byte[]> data = FileManager.SliceFile(filePath);
-            //TODO put msg in the right format - wont work like this ??
 
-
+            System.out.println("SENDING FILE: -" + fileName + "-");
 
             ExecutorService executor = Executors.newFixedThreadPool(5);//creating a pool of 5 threads
             for (int i = 0; i < data.size(); i++) {

@@ -1,0 +1,277 @@
+Java RMI registry gotten.
+Already existent Access Points: [0, 1]
+Control Channel connected to:
+	Port: 1234
+	Addr: 239.0.0.0
+	G_Addr: 239.0.0.0
+
+Backup Channel connected to:
+	Port: 1234
+	Addr: 239.1.0.0
+	G_Addr: 239.1.0.0
+
+Restore Channel connected to:
+	Port: 1234
+	Addr: 239.2.0.0
+	G_Addr: 239.2.0.0
+
+
+
+
+::::::::::::: NEW PEER CREATED :::::::::::::
+	Protocol Version: 1.0
+	       Server ID: 66495
+	    Access Point: 2
+	     MCC Address: 239.0.0.0:1234
+	     MBC Address: 239.1.0.0:1234
+	     MRC Address: 239.2.0.0:1234
+::::::::::::::::::::::::::::::::::::::::::::
+
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??x]E??????8N?ge??2???~?J
+Clean Id: -2032943657
+Received before 501 bytes
+Received before 501 bytes
+Received before 501 bytes
+Received before 501 bytes
+Received before 501 bytes
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+UPS
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 64055 bytes
+UPS
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+UPS
+UPS
+Received before 52 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+UPS
+Received before 52 bytes
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+UPS
+UPS
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+UPS
+Received before 52 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+UPS
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+UPS
+Received before 27294 bytes
+Received before 52 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+UPS
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+UPS
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+UPS
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 64051 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 27290 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 27290 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 27290 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+UPS
+Received before 52 bytes
+UPS
+Received before 52 bytes

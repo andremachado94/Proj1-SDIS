@@ -68,9 +68,11 @@ public class PutChunk {
 
         //TODO hash function ??
 
+        System.out.println("CREATING PUTCHUNK MSG WTH ID: " + new String(u.SHA256(fileName)));
+
         String dataString = "PUTCHUNK " + version + " " + peerId + " ";
         byte preData[] = dataString.getBytes();
-        preData = ByteConcat(preData, Util.GetCleanId(new String(u.SHA256(fileName))).getBytes());
+        preData = ByteConcat(preData, new String(u.SHA256(fileName)).getBytes());
 
         dataString = " " + chunkNumber + " " + repDegree + " " + u.CRLF_CRLF;
         preData = ByteConcat(preData, dataString.getBytes());
@@ -124,7 +126,7 @@ public class PutChunk {
         }
 
         String unparsedData[] = crlfSplit[0].split(" ");
-        String unparsedMessageData[] = new String[6];
+        String unparsedMessageData[] = new String[100];
 
         //Delete excessive white space
 
@@ -144,7 +146,7 @@ public class PutChunk {
         }
 
         if(j != 6){
-            System.out.println("Invalid (defective) number of arguments\n");
+            System.out.println("Invalid number of arguments\n");
             return null;
         }
 

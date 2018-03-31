@@ -30,7 +30,7 @@ sleep 1
 # start peers
 for ((i=0;i<$1;i++)); do
     echo "Starting Peer$i..."
-	java Peer > logs/peer$i.log &
+	java -Djava.net.preferIPv4Stack=true Peer > logs/peer$i.log &
 	sleep 1
 done
 #syntax: java Peer protocol_version server_id access_point, ip:port, ip:port, ip:port 

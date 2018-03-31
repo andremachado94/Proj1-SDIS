@@ -71,6 +71,7 @@ public class Client {
                         int repDegree = args.length!=4 ? 1 : Integer.parseInt(args[3]);
                         BackupFile file = new BackupFile(pathname);
                         System.out.println(peer.backup(file, repDegree)); // pathname, rep_degree
+                        System.out.println("RepDeg: " + repDegree);
                     }
                     else throw new IllegalArgumentException("BACKUP operation requires parameters <pathname> or <pathname> <rep_degree>");
                     break;

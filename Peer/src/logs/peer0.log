@@ -1,0 +1,394 @@
+Java RMI registry gotten.
+Already existent Access Points: []
+Control Channel connected to:
+	Port: 1234
+	Addr: 239.0.0.0
+	G_Addr: 239.0.0.0
+
+Backup Channel connected to:
+	Port: 1234
+	Addr: 239.1.0.0
+	G_Addr: 239.1.0.0
+
+Restore Channel connected to:
+	Port: 1234
+	Addr: 239.2.0.0
+	G_Addr: 239.2.0.0
+
+
+
+
+::::::::::::: NEW PEER CREATED :::::::::::::
+	Protocol Version: 1.0
+	       Server ID: 2224
+	    Access Point: 0
+	     MCC Address: 239.0.0.0:1234
+	     MBC Address: 239.1.0.0:1234
+	     MRC Address: 239.2.0.0:1234
+::::::::::::::::::::::::::::::::::::::::::::
+
+CHUNK SIZE: 64000
+Buffer Size: 450
+SENDING FILE: -test.txt-
+			Before replace: ��x]E������8N�ge�·2а��~� J
+			After replace: ��x]E������8N�ge�·2а��~�J
+CREATING PUTCHUNK MSG WTH ID: ??x]E??????8N?ge??2???~?J
+			Before replace: ��x]E������8N�ge�·2а��~� J
+			After replace: ��x]E������8N�ge�·2а��~�J
+			Before replace: ��x]E������8N�ge�·2а��~� J
+			After replace: ��x]E������8N�ge�·2а��~�J
+Sent 505 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Sent 505 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Sent 505 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Sent 505 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Sent 505 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Sent 505 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Sent 505 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Sent 505 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Sent 505 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+			Before replace: ��x]E������8N�ge�·2а��~� J
+			After replace: ��x]E������8N�ge�·2а��~�J
+Adding key: -2032943657
+Starting request 0
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??x]E??????8N?ge??2???~?J 0 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??x]E??????8N?ge??2???~?J
+Clean Id: -2032943657
+Received before 501 bytes
+Finished request 0 - chunk received
+Received before 501 bytes
+SAVING FILE
+	nNumber of Chunks: 0
+Received before 501 bytes
+Received before 501 bytes
+Received before 501 bytes
+CHUNK SIZE: 64000
+Buffer Size: 64000
+Buffer Size: 27239
+SENDING FILE: -CV.pdf-
+			Before replace: 膤�P�)�#Nm�� 2�����8�}
+			After replace: 膤�P�)�#Nm��2�����8�}
+CREATING PUTCHUNK MSG WTH ID: ??P?)?#Nm??2?????8?}
+			Before replace: 膤�P�)�#Nm�� 2�����8�}
+			After replace: 膤�P�)�#Nm��2�����8�}
+			Before replace: 膤�P�)�#Nm�� 2�����8�}
+			After replace: 膤�P�)�#Nm��2�����8�}
+Sent 64055 bytes
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Sent 64055 bytes
+			Before replace: 膤�P�)�#Nm�� 2�����8�}
+			After replace: 膤�P�)�#Nm��2�����8�}
+CREATING PUTCHUNK MSG WTH ID: ??P?)?#Nm??2?????8?}
+			Before replace: 膤�P�)�#Nm�� 2�����8�}
+			After replace: 膤�P�)�#Nm��2�����8�}
+			Before replace: 膤�P�)�#Nm�� 2�����8�}
+			After replace: 膤�P�)�#Nm��2�����8�}
+Received before 64055 bytes
+Sent 27294 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Sent 27294 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Sent 64055 bytes
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Sent 27294 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Sent 64055 bytes
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Sent 27294 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Sent 64055 bytes
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Sent 27294 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Sent 64055 bytes
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Sent 27294 bytes
+Received before 27294 bytes
+Received before 52 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Sent 64055 bytes
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Sent 27294 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Sent 505 bytes
+Received before 505 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Sent 64055 bytes
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Sent 27294 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+			Before replace: 膤�P�)�#Nm�� 2�����8�}
+			After replace: 膤�P�)�#Nm��2�����8�}
+Adding key: -1250940845
+Starting request 0
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 0 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 0 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Starting request 1
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 1 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 1 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 64051 bytes
+Starting request 2
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 2 dada
+Finished request 0 - chunk received
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Sent 53 bytes
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 2 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 1 dada
+Starting request 3
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 3 dada
+Sent 53 bytes
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 3 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Starting request 4
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 4 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 27290 bytes
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 2 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 4 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 3 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+SAVING FILE
+	nNumber of Chunks: 1
+Finished request 1 - chunk received
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 4 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 27290 bytes
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 2 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Received before 27290 bytes
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 3 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 4 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 2 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 3 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Sending GetChunk:
+GETCHUNK 1.0 2224 ??P?)?#Nm??2?????8?} 4 dada
+Sent 53 bytes
+Received before 53 bytes
+Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
+Clean Id: -1250940845
+Finished request 2 - chunk not received
+Finished request 3 - chunk not received
+Finished request 4 - chunk not received
+Sent 64055 bytes
+Received before 64055 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Sent 27294 bytes
+Received before 27294 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
