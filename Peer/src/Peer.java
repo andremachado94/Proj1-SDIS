@@ -24,9 +24,10 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         this.protocolVersion = new Version(protocolVersion);
         this.serverId = serverId;
         this.accessPoint = accessPoint;
-        this.controlModule = new ControlModule(mcc_ip, mcc_port, restoreController);
+        this.controlModule = new ControlModule(mcc_ip, mcc_port, serverId);
         this.backupController = new BackupController(mbc_ip, mbc_port, serverId, controlModule);
         this.restoreController = new RestoreController(mrc_ip, mrc_port, serverId, controlModule);
+        this.controlModule.SetRestoreController(this.restoreController);
 
         System.out.println("\n\n\n::::::::::::: NEW PEER CREATED :::::::::::::");
         System.out.println("\tProtocol Version: "+protocolVersion);
@@ -47,9 +48,10 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         int mbc_port = 1234;
         String mrc_ip = "239.2.0.0";
         int mrc_port = 1234;
-        this.controlModule = new ControlModule(mcc_ip, mcc_port, restoreController);
+        this.controlModule = new ControlModule(mcc_ip, mcc_port, serverId);
         this.backupController = new BackupController(mbc_ip, mbc_port, serverId, controlModule);
         this.restoreController = new RestoreController(mrc_ip, mrc_port, serverId, controlModule);
+        this.controlModule.SetRestoreController(this.restoreController);
     }
 
     @Deprecated
@@ -59,7 +61,12 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     @Deprecated
     public void StartRestoreRequest(String fileName, String version) {
-        restoreController.StartRestoreRequest(fileName, version);
+        byte[] file = restoreController.StartRestoreRequest(fileName, version);
+    }
+
+    @Deprecated
+    public void StartDeleteRequest(String fileName, String version) {
+        controlModule.StartDeleteRequest(fileName, version);
     }
 
     @Override

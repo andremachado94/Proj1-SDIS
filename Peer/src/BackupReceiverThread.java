@@ -1,4 +1,5 @@
-import java.net.DatagramPacket;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by andremachado on 16/03/2018.
@@ -6,7 +7,7 @@ import java.net.DatagramPacket;
 public class BackupReceiverThread extends Thread {
 
     private byte[] message;
-    private Chunk chunk;
+    private PutChunk putChunk;
     private int id;
     private ControlModule controlModule;
 
@@ -18,11 +19,9 @@ public class BackupReceiverThread extends Thread {
 
     @Override
     public void run() {
-        chunk = Chunk.ParsePutChunkMessage(message);
+        putChunk = PutChunk.ParsePutChunkMessage(message);
 
-        System.out.println("DATA SIZE AFTER PARSE IS " + chunk.getData().length + " bytes");
-
-        if(chunk != null && this.id != chunk.getPeerId()){
+        if(putChunk != null && this.id != putChunk.getPeerId()){
             //Sleep for rand time between 0 - 400 ms
             try {
                 Thread.sleep((long)(Math.random() * 400));
@@ -30,22 +29,17 @@ public class BackupReceiverThread extends Thread {
                 e.printStackTrace();
             }
 
+            //Check number of peers that stored the chunk
+            List<Integer> peers = controlModule.GetPeersThatStored(putChunk.getFileId(), putChunk.getChunkNumber());
+            if(peers != null && peers.size() >= putChunk.getRepDegree() && !peers.contains(id))
+                return;
 
-
-
-
-            FileManager.WriteChunckToBinFile(chunk, this.id);
-            //Check control - enhancement - not needed for now
-            //TODO
-
-            //Store chunk
-            //TODO
-
+            //Save chunk
+            FileManager.WriteChunckToBinFile(putChunk, this.id);
 
             //Send STORED control message
-            byte[] msg = chunk.GetStoredMessage(id).getBytes();
+            byte[] msg = putChunk.GetStoredMessage(id).getBytes();
             controlModule.SendControlMessage(msg);
-            //TODO call control sender method
         }
     }
 }

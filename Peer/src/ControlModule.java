@@ -1,3 +1,7 @@
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,19 +17,32 @@ public class ControlModule {
     private static Map<String, List<Integer>> storedMap = null;
     String ip;
     int port;
+    private int id;
 
-    public ControlModule(String ip, int port, RestoreController restoreController){
+    public void SetRestoreController(RestoreController restoreController) {
+        this.restoreController = restoreController;
+    }
+
+    private RestoreController restoreController;
+
+    public ControlModule(String ip, int port, int id){
         storedMap = new ConcurrentHashMap<String, List<Integer>>();
         channel = new MulticastControlChannel(ip, port);
         this.ip = ip;
         this.port = port;
+        this.id = id;
         InitializeControlChannelListener();
     }
+
 
     //TODO define criteria to clean Maps
 
     public void SendControlMessage(byte[] msg){
         channel.SendControlMessage(msg);
+    }
+
+    public void StartDeleteRequest(String fileName, String version){
+        SendControlMessage(DeleteMessage.GetDeleteMessage(version, id,  fileName).getBytes());
     }
 
     private void InitializeControlChannelListener(){
@@ -51,11 +68,23 @@ public class ControlModule {
                 else if(messageType == ControlMessageParser.TYPE_GETCHUNK){
                     GetChunkMessage getChunkMessage;
                     if((getChunkMessage = controlMessageParser.ParseGetChunkMessage(new String(msg))) != null){
-
+                        System.out.println("Received GETCHUNK msg: " + getChunkMessage.GetFileId());
+                        System.out.println("Clean Id: " + Util.GetCleanId(getChunkMessage.GetFileId()));
+                        restoreController.SendChunkMessage(getChunkMessage);
                     }
                     else{
-                        System.out.println("Controlo recebido tipo STORED");
-                        System.out.println("Erro a processar mensagem tipo STORED");
+                        System.out.println("Controlo recebido tipo GETCHUNK");
+                        System.out.println("Erro a processar mensagem tipo GETCHUNK");
+                    }
+                }
+                else if(messageType == ControlMessageParser.TYPE_DELETE){
+                    DeleteMessage deleteMessage;
+                    if((deleteMessage = controlMessageParser.ParseDeleteMessage(new String(msg))) != null) {
+                        DeleteFileRecords(deleteMessage.GetFileId(), deleteMessage.GetVersion());
+                    }
+                    else{
+                        System.out.println("Controlo recebido tipo DELETE");
+                        System.out.println("Erro a processar mensagem tipo DELETE");
                     }
                 }
                 else{
@@ -69,16 +98,66 @@ public class ControlModule {
 
     public boolean ReceivedStoredMessages(String fileId, int chunkNumber, int repDeg) {
         String key = fileId + "_" + chunkNumber;
-        System.out.print("key: " + key);
         if(storedMap.containsKey(key)) {
-            System.out.println(" found " + storedMap.get(key).size() + " times");
             if (storedMap.get(key).size() >= repDeg)
                 return true;
         }
-        System.out.println(" not found");
         return false;
     }
 
     public void SendRestoreRequest(String fileId, String version, int i) {
+        GetChunkMessage chunk = new GetChunkMessage(new Version(version), id, fileId, i);
+        System.out.println();
+        SendControlMessage(chunk.GetMessage().getBytes());
+
+        long waitTime = 200;
+/*
+        while(!controlModule.ReceivedStoredMessages(Util.GetCleanId(new String(fileId)), chunkNumber, repDeg)){
+            channel.SendBackupRequest(msg);
+            try {
+                Thread.sleep(waitTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            waitTime*=2;
+        }
+*/
+
+    }
+
+    private void DeleteFileRecords(String fileId, String version){
+        String cleanId = Util.GetCleanId(fileId);
+        final String dir = System.getProperty("user.dir");
+        final String filedir = new File(dir).getParent()+"/"+"backup_chunks"+"/"+id+"/"+cleanId;
+
+        File folder = new File(filedir);
+
+        if(folder.exists() && folder.isDirectory()) {
+            String files[] = folder.list();
+
+            for (String temp : files) {
+                System.out.println("DELETING: " + temp);
+                String chunkNumber = temp.split("\\.")[0];
+                if(chunkNumber != null) {
+                    try {
+                        int n = Integer.parseInt(chunkNumber);
+                        File fileDelete = new File(folder, temp);
+                        fileDelete.delete();
+                        SendControlMessage(RemovedMessage.GetRemovedMessage(version, id, fileId, n).getBytes());
+                    } catch (Exception e) {
+                        return;
+                    }
+                }
+            }
+
+            folder.delete();
+        }
+    }
+
+    public List<Integer> GetPeersThatStored(String fileId, int chunkNumber) {
+        if(storedMap.containsKey(fileId + "_" + chunkNumber)){
+            return storedMap.get(fileId + "_" + chunkNumber);
+        }
+        return null;
     }
 }

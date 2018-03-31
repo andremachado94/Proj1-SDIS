@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
  */
 public class Util {
 
+    public static int TYPE_CHUNK = 8;
     public static int TYPE_BACKUP = 1;
     public static int TYPE_RESTORE = 2;
     public static int TYPE_DELETE = 3;
@@ -100,6 +101,9 @@ public class Util {
         }
         else if(messageType.equalsIgnoreCase("GETCHUNK")){
             return TYPE_GETCHUNK;
+        }
+        else if(messageType.equalsIgnoreCase("CHUNK")){
+            return TYPE_CHUNK;
         }
         else {
             return TYPE_ERROR;

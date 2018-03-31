@@ -16,19 +16,12 @@ public class FileManager {
     private int chunkSize;
 
 
-    public int PreSize(String type, int id){
-        return  u.getCRLF_CRLF().getBytes().length +
-                type.getBytes().length +
-                Integer.toString(id).getBytes().length +
-                45;
-    }
 
-
-    public static ArrayList<byte[]> SliceFile(String path, int msgSize){
+    public static ArrayList<byte[]> SliceFile(String path){
 
         ArrayList<byte[]> slicedFile = new ArrayList<byte[]>();
 
-        int chunkSize = MAX_CHUNK_SIZE - msgSize;
+        int chunkSize = MAX_CHUNK_SIZE;
 
         if(chunkSize > MIN_CHUNK_SIZE && chunkSize <= MAX_CHUNK_SIZE) {
             try {
@@ -73,12 +66,12 @@ public class FileManager {
         return null;
     }
 
-    private static String GetChunkPathName(Chunk chunk){
-        return chunk.getFileId();
+    private static String GetChunkPathName(PutChunk putChunk){
+        return putChunk.getFileId();
     }
 
 
-    public static void WriteChunckToBinFile(Chunk chunk, int id){
+    public static void WriteChunckToBinFile(PutChunk putChunk, int id){
         String filePathString = null;
         final String dir = System.getProperty("user.dir");
 
@@ -96,7 +89,7 @@ public class FileManager {
 
 
         try {
-            filePathString = new File(dir).getParent()+"/"+"backup_chunks"+"/"+id+"/"+chunk.getFileId();
+            filePathString = new File(dir).getParent()+"/"+"backup_chunks"+"/"+id+"/"+ putChunk.getFileId();
             System.out.println("PATH: " + filePathString);
 
             File f = new File(new File(dir).getParent()+"/"+"backup_chunks");
@@ -123,9 +116,9 @@ public class FileManager {
             if(f.exists() && f.isDirectory()) {
                 FileOutputStream fos;
                 try {
-                    fos = new FileOutputStream(filePathString+"/"+chunk.getChunkNumber()+".bin");
+                    fos = new FileOutputStream(filePathString+"/"+ putChunk.getChunkNumber()+".bin");
                     try {
-                        fos.write(chunk.getData(), 0, chunk.getData().length);
+                        fos.write(putChunk.getData(), 0, putChunk.getData().length);
                         fos.flush();
                         fos.close();
                     } catch (IOException e) {

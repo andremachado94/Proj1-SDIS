@@ -26,14 +26,14 @@ public class BackupInitializer extends Thread{
     public void StartBackupRequest(String filePath, String version, int repDeg, String fileName){
         Thread backupRequest = new Thread(() -> {
             FileManager fm = new FileManager();
-            ArrayList<byte[]> data = FileManager.SliceFile(filePath, fm.PreSize("backup", id));
+            ArrayList<byte[]> data = FileManager.SliceFile(filePath);
             //TODO put msg in the right format - wont work like this ??
 
 
 
             ExecutorService executor = Executors.newFixedThreadPool(5);//creating a pool of 5 threads
             for (int i = 0; i < data.size(); i++) {
-                byte[] msg = Chunk.GetPutChunkMessage(data.get(i), i, version, id, repDeg, fileName);
+                byte[] msg = PutChunk.GetPutChunkMessage(data.get(i), i, version, id, repDeg, fileName);
                 Runnable worker = new BackupSenderThread(msg, i, fileName, repDeg, channel, controlModule);
                 executor.execute(worker);
                 try {
