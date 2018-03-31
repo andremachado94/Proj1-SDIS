@@ -15,6 +15,8 @@ echo $1 | grep -E -q '^[0-9]+$' || die "Numeric argument required, $1 provided"
 # clean up previous instances
 echo "Cleaning up previous instances..."
 pkill rmiregistry && pkill -9 -f Peer
+mkdir -p logs
+rm -f ./logs/*.log
 
 # compile
 echo "Compiling..."
@@ -34,4 +36,4 @@ done
 #syntax: java Peer protocol_version server_id access_point, ip:port, ip:port, ip:port 
 #exampl: java Peer 1.0 3 0 239.0.0.0 1234 239.1.0.0 1234 239.2.0.0 1234 > logs/peer0.log &
 
-echo "Done."
+echo "Done. Peers at the ready."
