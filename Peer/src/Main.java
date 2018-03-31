@@ -1,5 +1,6 @@
 import java.rmi.RemoteException;
 
+@SuppressWarnings("deprecation")
 public class Main {
 
     public static void main(String[] args) throws RemoteException {
