@@ -83,7 +83,8 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     @Override
     public String delete(String pathname) {
-        return null;
+        controlModule.StartDeleteRequest(pathname, "1.1");
+        return "File " + pathname + " deleted";
     }
 
     @Override

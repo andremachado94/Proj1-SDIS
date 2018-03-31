@@ -22,17 +22,17 @@ public class Client {
         System.out.println();
         System.out.println("\tRESTORE : ");
         System.out.println("\t\tDescription: ");
-        System.out.println("\t\t\tRestore a file, specifying its pathname.");
+        System.out.println("\t\t\tRestore a file, specifying its filename.");
         System.out.println("\t\tSyntax:");
-        System.out.println("\t\t\tjava Client <peer_ap> RESTORE <pathname>");
+        System.out.println("\t\t\tjava Client <peer_ap> RESTORE <filename>");
         System.out.println("\t\te.g.:");
         System.out.println("\t\t\tjava Client <peer_ap> RESTORE mynotebook.txt");
         System.out.println();
         System.out.println("\tDELETE : ");
         System.out.println("\t\tDescription: ");
-        System.out.println("\t\t\tDelete a file, specifying its pathname.");
+        System.out.println("\t\t\tDelete a file, specifying its filename.");
         System.out.println("\t\tSyntax:");
-        System.out.println("\t\t\tjava Client <peer_ap> DELETE <pathname>");
+        System.out.println("\t\t\tjava Client <peer_ap> DELETE <filename>");
         System.out.println("\t\te.g.:");
         System.out.println("\t\t\tjava Client <peer_ap> DELETE mynotebook.txt");
         System.out.println();
@@ -77,15 +77,15 @@ public class Client {
                     break;
                 case "RESTORE": // e.g.: java Client AP0 RESTORE test1.pdf
                     if (args.length == 3) System.out.println(peer.restore(args[2])); // pathname
-                    else throw new IllegalArgumentException("RESTORE operation requires parameter <pathname>");
+                    else throw new IllegalArgumentException("RESTORE operation requires parameter <filename>");
                     break;
                 case "DELETE": // e.g.: java Client AP0 DELETE test1.pdf
                     if (args.length == 3) System.out.println(peer.delete(args[2])); // pathname
-                    else throw new IllegalArgumentException("DELETE operation requires parameter <pathname>");
+                    else throw new IllegalArgumentException("DELETE operation requires parameter <filename>");
                     break;
                 case "STATE": // e.g.: java Client AP0 STATE
                     if (args.length == 2) System.out.println(peer.state());
-                    else throw new IllegalArgumentException("RESTORE operation requires no further parameters");
+                    else throw new IllegalArgumentException("STATE operation requires no further parameters");
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown operation. Please enter a known operation.");

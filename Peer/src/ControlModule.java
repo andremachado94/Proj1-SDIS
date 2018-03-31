@@ -80,6 +80,7 @@ public class ControlModule {
                 else if(messageType == ControlMessageParser.TYPE_DELETE){
                     DeleteMessage deleteMessage;
                     if((deleteMessage = controlMessageParser.ParseDeleteMessage(new String(msg))) != null) {
+                        System.out.println("DELETE: " + deleteMessage.GetFileId());
                         DeleteFileRecords(deleteMessage.GetFileId(), deleteMessage.GetVersion());
                     }
                     else{
@@ -132,6 +133,9 @@ public class ControlModule {
 
         File folder = new File(filedir);
 
+        System.out.println("DELETE: folder: " + filedir);
+
+
         if(folder.exists() && folder.isDirectory()) {
             String files[] = folder.list();
 
@@ -145,12 +149,15 @@ public class ControlModule {
                         fileDelete.delete();
                         SendControlMessage(RemovedMessage.GetRemovedMessage(version, id, fileId, n).getBytes());
                     } catch (Exception e) {
-                        return;
+
                     }
                 }
             }
 
             folder.delete();
+        }
+        else{
+            System.out.println("DELETE: folder doesn't exist");
         }
     }
 

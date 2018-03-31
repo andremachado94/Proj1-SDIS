@@ -20,284 +20,294 @@ Restore Channel connected to:
 
 ::::::::::::: NEW PEER CREATED :::::::::::::
 	Protocol Version: 1.0
-	       Server ID: 31809
+	       Server ID: 62676
 	    Access Point: 6
 	     MCC Address: 239.0.0.0:1234
 	     MBC Address: 239.1.0.0:1234
 	     MRC Address: 239.2.0.0:1234
 ::::::::::::::::::::::::::::::::::::::::::::
 
-Received before 505 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 52 bytes
-Received before 505 bytes
+Received before 64056 bytes
 BackupReceiverThreadStarted
 ParsePUtChunkMessage finished
 Received before 52 bytes
 Received before 52 bytes
-Saving
-PATH: /Users/andremachado/IdeaProjects/Peer/backup_chunks/31809/-2032943657
-Sent 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Saving
-PATH: /Users/andremachado/IdeaProjects/Peer/backup_chunks/31809/-2032943657
-Sent 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 505 bytes
+Received before 27295 bytes
 BackupReceiverThreadStarted
 ParsePUtChunkMessage finished
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Saving
-PATH: /Users/andremachado/IdeaProjects/Peer/backup_chunks/31809/-2032943657
-Sent 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 505 bytes
+Received before 64056 bytes
 BackupReceiverThreadStarted
 ParsePUtChunkMessage finished
 Received before 52 bytes
 Received before 52 bytes
 Received before 52 bytes
 Received before 52 bytes
-Saving
-PATH: /Users/andremachado/IdeaProjects/Peer/backup_chunks/31809/-2032943657
-Sent 52 bytes
-Received before 52 bytes
-Received before 505 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
 Received before 52 bytes
 Received before 52 bytes
 Received before 52 bytes
-Received before 52 bytes
-Saving
-PATH: /Users/andremachado/IdeaProjects/Peer/backup_chunks/31809/-2032943657
-Sent 52 bytes
-Received before 52 bytes
-Received before 505 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Saving
-PATH: /Users/andremachado/IdeaProjects/Peer/backup_chunks/31809/-2032943657
-Sent 52 bytes
-Received before 52 bytes
-Received before 505 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Saving
-PATH: /Users/andremachado/IdeaProjects/Peer/backup_chunks/31809/-2032943657
-Sent 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 505 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Saving
-PATH: /Users/andremachado/IdeaProjects/Peer/backup_chunks/31809/-2032943657
-Sent 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 505 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Saving
-PATH: /Users/andremachado/IdeaProjects/Peer/backup_chunks/31809/-2032943657
-Sent 52 bytes
-Received before 52 bytes
-Received before 53 bytes
-Received GETCHUNK msg: ??x]E??????8N?ge??2???~?J
-Clean Id: -2032943657
-Received before 501 bytes
-Sending Chunk Message: CHUNK 1.0 31809 ??x]E??????8N?ge??2???~?J 0 dadaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris Sn i s i ut Daliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-Sent 501 bytes
-Received before 501 bytes
-Received before 501 bytes
-Received before 501 bytes
-Received before 501 bytes
-Received before 64055 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 52 bytes
-Received before 64055 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 27294 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-UPS
-Received before 52 bytes
-Received before 27294 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 52 bytes
-UPS
-UPS
-UPS
-Received before 64055 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 52 bytes
-Received before 52 bytes
-Received before 27294 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-UPS
-Received before 52 bytes
-UPS
-Received before 64055 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-UPS
-Received before 52 bytes
-Received before 27294 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 52 bytes
-UPS
-Received before 64055 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-UPS
-Received before 52 bytes
-Received before 27294 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 52 bytes
-UPS
-Received before 64055 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-UPS
-Received before 27294 bytes
-Received before 52 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 52 bytes
-UPS
-Received before 64055 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-UPS
-Received before 27294 bytes
+Received before 27295 bytes
 BackupReceiverThreadStarted
 ParsePUtChunkMessage finished
 Received before 52 bytes
 Received before 52 bytes
 UPS
-Received before 505 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Received before 52 bytes
-Saving
-PATH: /Users/andremachado/IdeaProjects/Peer/backup_chunks/31809/-2032943657
-Sent 52 bytes
-Received before 52 bytes
-Received before 64055 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
 UPS
-Received before 27294 bytes
-BackupReceiverThreadStarted
-ParsePUtChunkMessage finished
 Received before 52 bytes
 Received before 52 bytes
 UPS
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 64051 bytes
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 27290 bytes
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 27290 bytes
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 27290 bytes
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 53 bytes
-Received GETCHUNK msg: ??P?)?#Nm??2?????8?}
-Clean Id: -1250940845
-Received before 64055 bytes
+Received before 52 bytes
+Received before 64056 bytes
 BackupReceiverThreadStarted
 ParsePUtChunkMessage finished
-Received before 27294 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 27295 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 64056 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 27295 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 64056 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 27295 bytes
 BackupReceiverThreadStarted
 ParsePUtChunkMessage finished
 Received before 52 bytes
 UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 64056 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 27295 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 64056 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 27295 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 506 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 506 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 506 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 506 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 506 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 64056 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 27295 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+UPS
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 506 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 506 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 50 bytes
+DELETE: ??P?)?#Nm??2?????8?}
+DELETE: folder: /Users/andremachado/IdeaProjects/Peer/backup_chunks/62676/-1250940845
+DELETE: folder doesn't exist
+Received before 78 bytes
+Invalid (excessive) number of arguments in DELETE
+
+Controlo recebido tipo DELETE
+Erro a processar mensagem tipo DELETE
+Received before 78 bytes
+Invalid (excessive) number of arguments in DELETE
+
+Controlo recebido tipo DELETE
+Erro a processar mensagem tipo DELETE
+Received before 78 bytes
+Invalid (excessive) number of arguments in DELETE
+
+Controlo recebido tipo DELETE
+Erro a processar mensagem tipo DELETE
+Received before 78 bytes
+Invalid (excessive) number of arguments in DELETE
+
+Controlo recebido tipo DELETE
+Erro a processar mensagem tipo DELETE
+Received before 78 bytes
+Invalid (excessive) number of arguments in DELETE
+
+Controlo recebido tipo DELETE
+Erro a processar mensagem tipo DELETE
+Received before 78 bytes
+Invalid (excessive) number of arguments in DELETE
+
+Controlo recebido tipo DELETE
+Erro a processar mensagem tipo DELETE
+Received before 78 bytes
+Invalid (excessive) number of arguments in DELETE
+
+Controlo recebido tipo DELETE
+Erro a processar mensagem tipo DELETE
+Received before 78 bytes
+Invalid (excessive) number of arguments in DELETE
+
+Controlo recebido tipo DELETE
+Erro a processar mensagem tipo DELETE
+Received before 506 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 64056 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 27295 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 506 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 64056 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+UPS
+Received before 27295 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
+UPS
+Received before 52 bytes
+Received before 52 bytes
+Received before 506 bytes
+BackupReceiverThreadStarted
+ParsePUtChunkMessage finished
+Received before 52 bytes
+Received before 52 bytes
+Received before 52 bytes
 UPS
 Received before 52 bytes

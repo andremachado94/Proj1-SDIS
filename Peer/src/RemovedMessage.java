@@ -17,7 +17,7 @@ public class RemovedMessage {
     }
 
     public static String GetRemovedMessage(String version, int peerId, String fileName, int chunkNumber){
-        return "DELETE " + version + " " + peerId + " " + Util.SHA256_String(fileName)+ " " + chunkNumber + " " + u.getCRLF_CRLF();
+        return "DELETE " + version + " " + peerId + " " + new String(Util.SHA256(fileName))+ " " + chunkNumber + " " + u.getCRLF_CRLF();
     }
 
     public String GetFileId() {

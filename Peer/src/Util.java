@@ -65,30 +65,6 @@ public class Util {
         return String.valueOf(id.hashCode());
     }
 
-    public static String SHA256_String(String text){
-        MessageDigest digest = null;
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(text.getBytes(StandardCharsets.US_ASCII));
-
-            String val = new String(hash);
-
-            System.out.println("\t\t\tBefore replace: " + val);
-            val = val.replaceAll("\\s+", "");
-            System.out.println("\t\t\tAfter replace: " + val);
-
-            return val;
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-
-    public void PrintInvalidHeadersMessage(){
-        System.out.println("Invalid headers. Usage:");
-        System.out.println("\tjava ServerlessFileSystem <MessageType> <Version> <SenderId> <FileId> <ChunkNo> <ReplicationDeg> <CRLF>");
-    }
 
     public int MessageTypeValidator(String messageType){
 
