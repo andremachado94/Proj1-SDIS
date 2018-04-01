@@ -17,10 +17,11 @@ echo "Cleaning up previous instances..."
 pkill rmiregistry && pkill -9 -f Peer
 mkdir -p logs
 rm -f ./logs/*.log
+rm -f *.class
 
 # compile
 echo "Compiling..."
-rm *.class && javac *.java
+javac *.java
 
 # start rmiregistry
 echo "Starting RMI Registry..."
@@ -29,7 +30,7 @@ sleep 1
 
 # start peers
 for ((i=0;i<$1;i++)); do
-    echo "Starting Peer$i..."
+    echo "Starting peer //localhost/BackupPeer$i..."
 	java -Djava.net.preferIPv4Stack=true Peer > logs/peer$i.log &
 	sleep 1
 done

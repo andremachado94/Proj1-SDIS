@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -70,9 +73,15 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
     }
 
     @Override
-    public String backup(BackupFile file, int repDegree) {
-        backupController.StartBackupRequest(file.getPathname(), file.getVersion(), repDegree, file.getFileName());
-        return "BACKUP processed - file: " + file.getFileName();
+    public String backup(String filePath, int repDegree) {
+        File file = new File(filePath);
+        // file not found
+        if (!file.exists()){
+            return "Error: File not found!";
+        }
+        // file found. proceed with backup request
+        backupController.StartBackupRequest(filePath, "1.1", repDegree, file.getName());
+        return "Backup: successfully backed up " + file.getName();
     }
 
     @Override
@@ -98,6 +107,7 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
                 "\n\tRestore Controller: "+restoreController+ //TODO implement this toString()
                 "\n::::::::::::::::::::::::::::::::::::::::::::";
     }
+
 
     private String getUrl(){
         return BackupInterface.BASE_URL + accessPoint;
