@@ -80,7 +80,11 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
             return "Error: File not found!";
         }
         // file found. proceed with backup request
-        backupController.StartBackupRequest(filePath, "1.1", repDegree, file.getName()); //TODO returns boolean
+        /*int result = */backupController.StartBackupRequest(filePath, "1.1", repDegree, file.getName()); //TODO returns boolean
+        /*if (!result)
+            return "Error: failed to backup file " + file.getName();*/
+
+        //success
         return "Backup: successfully backed up " + file.getName();
     }
 
@@ -90,8 +94,15 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
     }
 
     @Override
+    public String reclaim(int maxSpace) { //TODO
+        return "TODO implement Peer-side RECLAIM";
+    }
+
+    @Override
     public String delete(String fileName) {
-        controlModule.StartDeleteRequest(fileName, "1.1"); //TODO returns boolean
+        /*int result = */controlModule.StartDeleteRequest(fileName, "1.1"); //TODO returns boolean
+        /*if (!result)
+            return "Error: failed to backup file " + file.getName();*/
         return "File " + fileName + " deleted.";
     }
 
