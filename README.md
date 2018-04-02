@@ -51,7 +51,7 @@ If you prefer the CLI mode, run:
 ```
 java Client <peer_ap> <operation> <param1> <param2>
 ```
-*.e.g:*
+*e.g.:*
 ```
 java Client //localhost:1099/BackupPeer0 BACKUP myfile.pdf 3
 ```
