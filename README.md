@@ -8,9 +8,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You need Java 8 to compile the software.
+Lambda functions were used, and are not supported by Java 7.
+You need at least Java 8 to compile the software. 
 
-### Installing and running peer (AUTOMATIC)
+### Installing and running Peers (AUTOMATIC)
 
 Go to Peer/src/ and run:
 ```
@@ -19,7 +20,7 @@ chmod +x run_peers
 ```
 this will cleanup any old processes, compile all java files, start local java rmiregistry, and start 8 peer-servers.
 
-### Installing and running peers (MANUAL)
+### Installing and running Peers (MANUAL)
 
 Go to Peer/src/ and, to clean up and compile, run:
 ```
@@ -39,7 +40,8 @@ java Peer <protocol_ver> <server_id> <access_point> <mcc_ip> <mcc_port> <mbc_ip>
 ```
 java Peer 1.1 4 //localhost:1099/BackupPeer4 239.0.0.0 1234 239.1.0.0 1234 239.2.0.0 1234
 ```
-### Running Client
+Lambda functions were used, and are not supported by Java 7.
+### Running the Client
 
 After compiling and running peers, start Client by running:
 ```
