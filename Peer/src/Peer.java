@@ -85,15 +85,14 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
     }
 
     @Override
-    public String restore(String pathname) {
-        byte[] data = restoreController.StartRestoreRequest(pathname, "1.0");
-        return "Restored:\n"+ new String(data);
+    public byte[] restore(String fileName) {
+        return restoreController.StartRestoreRequest(fileName, "1.1");
     }
 
     @Override
-    public String delete(String pathname) {
-        controlModule.StartDeleteRequest(pathname, "1.1");
-        return "File " + pathname + " deleted";
+    public String delete(String fileName) {
+        controlModule.StartDeleteRequest(fileName, "1.1");
+        return "File " + fileName + " deleted.";
     }
 
     @Override
@@ -105,6 +104,7 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
                 "\n\t    Control Module: "+controlModule+ //TODO implement this toString()
                 "\n\t Backup Controller: "+backupController+ //TODO implement this toString()
                 "\n\tRestore Controller: "+restoreController+ //TODO implement this toString()
+                //TODO space used + space total + space left
                 "\n::::::::::::::::::::::::::::::::::::::::::::";
     }
 

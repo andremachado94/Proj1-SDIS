@@ -1,8 +1,11 @@
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -27,14 +30,9 @@ public class Client {
     private JTextArea textArea1;
     private JButton launchNewPeerButton;
     private JLabel statusField;
+    private JButton reclaimButton;
 
     public Client() {
-        /*searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"Hello World!");
-            }
-        });*/
         restartRMIButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -69,7 +67,7 @@ public class Client {
                 JFileChooser chooser = new JFileChooser();
                 int returnVal = chooser.showOpenDialog(panelMain);
                 if(returnVal != JFileChooser.APPROVE_OPTION) {
-                    System.err.println("File chooser unexpectedly returned code "+returnVal);
+                    System.err.println("Error: File chooser unexpectedly returned code "+returnVal);
                     return;
                 }
                 String filePath = chooser.getSelectedFile().getAbsolutePath();
@@ -90,11 +88,97 @@ public class Client {
                     String result = peer.backup(chooser.getSelectedFile().getAbsolutePath(),repDegree);
                     statusField.setText(result);
                 } catch (Exception ex) {
-                    statusField.setText("Error: failed to send BACKUP command.");
+                    statusField.setText("Error: failed to execute BACKUP operation.");
                     System.err.println(ex.getMessage());
                     ex.printStackTrace();
                     return;
                 }
+            }
+        });
+        restoreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // ask for filename
+                String filename = JOptionPane.showInputDialog("Enter desired file's name:");
+                System.out.println("User entered filename: "+filename);
+
+                // restore
+                byte[] result = null;
+                try {
+                    BackupInterface peer = (BackupInterface)Naming.lookup(accessPointField.getText());
+                    result = peer.restore(filename);
+                    assert result != null;
+                    statusField.setText("Successfully retrieved "+filename);
+                } catch (Exception ex) {
+                    statusField.setText("Error: failed to execute RESTORE operation.");
+                    System.err.println(ex.getMessage());
+                    ex.printStackTrace();
+                    return;
+                }
+
+                // where to save
+                JFileChooser chooser = new JFileChooser();
+                chooser.setDialogTitle("Specify where to save file");
+                chooser.setSelectedFile(new File(filename));
+                int returnVal = chooser.showSaveDialog(panelMain);
+                if(returnVal != JFileChooser.APPROVE_OPTION) {
+                    System.err.println("Error: File chooser unexpectedly returned code "+returnVal);
+                    return;
+                }
+                String filePath = chooser.getSelectedFile().getAbsolutePath();
+
+                // save
+                try (FileOutputStream fos = new FileOutputStream(filePath)) {
+                    fos.write(result);
+                } catch (Exception ex) {
+                    statusField.setText("Error: failed to save file at path specified.");
+                    System.err.println(ex.getMessage());
+                    ex.printStackTrace();
+                    return;
+                }
+            }
+        });
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // ask for filename
+                String filename = JOptionPane.showInputDialog("Enter desired file's name:");
+                System.out.println("User entered filename: "+filename);
+
+                // delete
+                String result = null;
+                try {
+                    BackupInterface peer = (BackupInterface)Naming.lookup(accessPointField.getText());
+                    result = peer.delete(filename);
+                    assert result != null;
+                    statusField.setText("Successfully removed "+filename);
+                } catch (Exception ex) {
+                    statusField.setText("Error: failed to execute DELETE operation.");
+                    System.err.println(ex.getMessage());
+                    ex.printStackTrace();
+                    return;
+                }
+            }
+        });
+        stateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // state
+                String result = null;
+                try {
+                    BackupInterface peer = (BackupInterface)Naming.lookup(accessPointField.getText());
+                    result = peer.state();
+                    assert result != null;
+                    statusField.setText("Successfully retrieved Peer's state.");
+                } catch (Exception ex) {
+                    statusField.setText("Error: failed to execute STATE operation.");
+                    System.err.println(ex.getMessage());
+                    ex.printStackTrace();
+                    return;
+                }
+                System.out.println(result);
+
+                JOptionPane.showMessageDialog(panelMain, result, "Peer's State response", JOptionPane.PLAIN_MESSAGE);
             }
         });
     }
@@ -112,9 +196,11 @@ public class Client {
             System.err.println(e.getMessage());
             System.err.println("RMI Registry not found. Start rmiregistry beforehand.");
             statusField.setText("Error: RMI Registry not found.");
+            apList.setListData(new String[0]);
         } catch (MalformedURLException e) {
             System.err.println(e.getMessage());
             statusField.setText("Error: Malformed URL.");
+            apList.setListData(new String[0]);
         }
 
     }
@@ -122,11 +208,20 @@ public class Client {
     public static void main(String args[]) throws MalformedURLException,RemoteException,NotBoundException {
         // GUI start
         if (args.length==0){
+            // Set cross-platform Java L&F (also called "Metal")
+            try {
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel"); //Windows Look and feel
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+                e.printStackTrace();
+            }
+
+            // init jframe
             JFrame frame = new JFrame("Client");
             frame.setContentPane(new Client().panelMain);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
             return;
         }
 
