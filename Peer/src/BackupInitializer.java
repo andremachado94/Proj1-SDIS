@@ -89,6 +89,7 @@ public class BackupInitializer extends Thread{
 
         for(int i = 0 ; i < size[0] ; i++){
             if(!controlModule.ReceivedStoredMessages(new String(Util.SHA256(fileName)), i, repDeg)) {
+                controlModule.StartDeleteRequest(fileName, version);
                 return false;
             }
         }
