@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-
-
 /**
  * Created by andremachado on 09/03/2018.
  */
@@ -19,8 +16,8 @@ public class BackupController{
         initializer = new BackupInitializer(ip, port, id, controlModule, channel);
     }
 
-    public void StartBackupRequest(String filePath, String version, int repDeg, String fileName){
-        initializer.StartBackupRequest(filePath, version, repDeg, fileName);
+    public boolean StartBackupRequest(String filePath, String version, int repDeg, String fileName){
+        return initializer.StartBackupRequest(filePath, version, repDeg, fileName);
     }
 
 }

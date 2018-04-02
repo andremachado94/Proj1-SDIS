@@ -78,9 +78,9 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
             return "Error: File not found!";
         }
         // file found. proceed with backup request
-        /*int result = */backupController.StartBackupRequest(filePath, "1.1", repDegree, file.getName()); //TODO returns boolean
-        /*if (!result)
-            return "Error: failed to backup file " + file.getName();*/
+        boolean result = backupController.StartBackupRequest(filePath, "1.1", repDegree, file.getName()); //TODO returns boolean
+        if (!result)
+            return "Error: failed to backup file " + file.getName();
 
         //success
         return "Backup: successfully backed up " + file.getName();

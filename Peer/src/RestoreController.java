@@ -29,7 +29,7 @@ public class RestoreController {
         Thread thread = new Thread() {
             public void run(){
                 try {
-                    Thread.sleep((long)(Math.random() * 400)); //TODO change ??
+                    Thread.sleep((long)(Math.random() * 400));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

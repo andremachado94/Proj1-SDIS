@@ -19,6 +19,8 @@ public class ControlModule {
     int port;
     private int id;
 
+    private long maxPeerCapacity = 1700;
+
     public void SetRestoreController(RestoreController restoreController) {
         this.restoreController = restoreController;
     }
@@ -52,13 +54,17 @@ public class ControlModule {
                 int messageType = controlMessageParser.GetMessageType(new String(msg));
                 if(messageType == ControlMessageParser.TYPE_STORED){
                     StoredMessage storedMessage;
-                    if((storedMessage = controlMessageParser.ParseStoredMessage(new String(msg))) != null){
+                    if((storedMessage = controlMessageParser.ParseStoredMessage(new String(msg))) != null) {
                         List<Integer> peers = storedMap.get(storedMessage.getFileId() + "_" + storedMessage.getChunkNumber());
-                        if(peers == null){
+                        if (peers == null) {
                             peers = new ArrayList<Integer>();
                         }
-                        peers.add(storedMessage.getPeerId());
-                        storedMap.put(storedMessage.getFileId() + "_" + storedMessage.getChunkNumber(), peers);
+                        System.out.println("RECEIVED STORED " + storedMessage.getFileId() + "_" + storedMessage.getChunkNumber() + "\t-\t" + peers.toString());
+                        if (!peers.contains(storedMessage.getPeerId())) {
+                            peers.add(storedMessage.getPeerId());
+                            System.out.println("Adding key: " + storedMessage.getFileId() + "_" + storedMessage);
+                            storedMap.put(storedMessage.getFileId() + "_" + storedMessage.getChunkNumber(), peers);
+                        }
                     }
                     else{
                         System.out.println("Controlo recebido tipo STORED");
@@ -99,6 +105,7 @@ public class ControlModule {
 
     public boolean ReceivedStoredMessages(String fileId, int chunkNumber, int repDeg) {
         String key = fileId + "_" + chunkNumber;
+        System.out.println("Checking for " + key);
         if(storedMap.containsKey(key)) {
             if (storedMap.get(key).size() >= repDeg)
                 return true;
@@ -110,19 +117,6 @@ public class ControlModule {
         GetChunkMessage chunk = new GetChunkMessage(new Version(version), id, fileId, i);
         System.out.println("Sending GetChunk:\n" + chunk.GetMessage());
         SendControlMessage(chunk.GetMessage().getBytes());
-
-        long waitTime = 200;
-/*
-        while(!controlModule.ReceivedStoredMessages(Util.GetCleanId(new String(fileId)), chunkNumber, repDeg)){
-            channel.SendBackupRequest(msg);
-            try {
-                Thread.sleep(waitTime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            waitTime*=2;
-        }
-*/
 
     }
 
@@ -166,5 +160,9 @@ public class ControlModule {
             return storedMap.get(fileId + "_" + chunkNumber);
         }
         return null;
+    }
+
+    public long GetMaxPeerCapacity() {
+        return maxPeerCapacity;
     }
 }

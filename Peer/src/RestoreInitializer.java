@@ -80,6 +80,7 @@ public class RestoreInitializer {
                 }
                 if(ongoingRestore.get(Util.GetCleanId(fileId)) != -1){
                     executor.shutdown();
+
                     return;
                 }
 
@@ -105,13 +106,31 @@ public class RestoreInitializer {
             if(ongoingRestore.get(Util.GetCleanId(fileId)) != -1){
                 System.out.println("SAVING FILE\n\tnNumber of Chunks: "+ongoingRestore.get(Util.GetCleanId(fileId)));
 
-                if(ongoingRestore.get(Util.GetCleanId(fileId)) == -2)
+                if(ongoingRestore.get(Util.GetCleanId(fileId)) == -2) {
+                    CleanMaps(Util.GetCleanId(fileId));
                     return null;
+                }
 
-                return SaveFile(Util.GetCleanId(fileId), fileName);
+                byte[] file = SaveFile(Util.GetCleanId(fileId), fileName);
+
+                CleanMaps(Util.GetCleanId(fileId));
+
+                return file;
             }
         }
 
+    }
+
+    private void CleanMaps(String fileId){
+        if(ongoingRestore.containsKey(fileId)) {
+            int chunks = ongoingRestore.get(fileId);
+
+            for (int i = 0; i <= chunks; i++) {
+                if (restoredChunks.containsKey(fileId + "_" + i)) {
+                    restoredChunks.remove(fileId + "_" + i);
+                }
+            }
+        }
     }
 
 

@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +20,13 @@ public class BackupReceiverThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println("BackupReceiverThreadStarted");
         putChunk = PutChunk.ParsePutChunkMessage(message);
-        System.out.println("ParsePUtChunkMessage finished");
 
-        if(putChunk != null && this.id != putChunk.getPeerId()){
+        final String dir = System.getProperty("user.dir");
+        final String peerdir = new File(dir).getParent()+"/"+"backup_chunks"+"/"+id;
+        File f = new File(peerdir);
+
+        if(putChunk != null && this.id != putChunk.getPeerId() && (controlModule.GetMaxPeerCapacity()==-1 || controlModule.GetMaxPeerCapacity()*1000 >= putChunk.getData().length + Util.PathSize(f.toPath()))){
             //Sleep for rand time between 0 - 400 ms
             try {
                 Thread.sleep((long)(Math.random() * 400));
