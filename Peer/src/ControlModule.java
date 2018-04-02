@@ -19,6 +19,8 @@ public class ControlModule {
     int port;
     private int id;
 
+    private long maxPeerCapacity = 1700;
+
     public void SetRestoreController(RestoreController restoreController) {
         this.restoreController = restoreController;
     }
@@ -111,19 +113,6 @@ public class ControlModule {
         System.out.println("Sending GetChunk:\n" + chunk.GetMessage());
         SendControlMessage(chunk.GetMessage().getBytes());
 
-        long waitTime = 200;
-/*
-        while(!controlModule.ReceivedStoredMessages(Util.GetCleanId(new String(fileId)), chunkNumber, repDeg)){
-            channel.SendBackupRequest(msg);
-            try {
-                Thread.sleep(waitTime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            waitTime*=2;
-        }
-*/
-
     }
 
     private void DeleteFileRecords(String fileId, String version){
@@ -166,5 +155,9 @@ public class ControlModule {
             return storedMap.get(fileId + "_" + chunkNumber);
         }
         return null;
+    }
+
+    public long GetMaxPeerCapacity() {
+        return maxPeerCapacity;
     }
 }
