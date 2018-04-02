@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2018 [André Machado](AndreMachado94), [Diogo Seca](diogoseca)
+Copyright (c) 2018 [André Machado](https://github.com/AndreMachado94), [Diogo Seca](https://github.com/diogoseca)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
