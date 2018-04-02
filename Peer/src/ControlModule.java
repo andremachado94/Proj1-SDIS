@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
+import static com.sun.imageio.plugins.jpeg.JPEG.version;
+
 /**
  * Created by andremachado on 16/03/2018.
  */
@@ -45,7 +47,8 @@ public class ControlModule {
     }
 
     public void StartDeleteRequest(String fileName, String version){
-        SendControlMessage(DeleteMessage.GetDeleteMessage(version, id,  fileName).getBytes());
+        String msg = DeleteMessage.GetDeleteMessage(version, id,  fileName);
+        SendControlMessage(msg.getBytes());
     }
 
     public boolean StartReclaimRequest(int maxPeerCapacity){
@@ -78,7 +81,7 @@ public class ControlModule {
         return res;
     }
 
-    public static boolean ReclaimDelete(File file, File baseFile, int capacity)
+    public boolean ReclaimDelete(File file, File baseFile, int capacity)
             throws IOException{
 
         if(file.isDirectory()){
@@ -112,9 +115,10 @@ public class ControlModule {
             }
 
         }else{
-            //if file, then delete it
-            file.delete();
+
             System.out.println("File is deleted : " + file.getAbsolutePath());
+            //SendControlMessage(RemovedMessage.GetRemovedMessage("1.0", id, file.getParentFile().getName(), n).getBytes());
+            file.delete();
             if(ReclaimExitCheck(baseFile, capacity))
                 return true;
         }
