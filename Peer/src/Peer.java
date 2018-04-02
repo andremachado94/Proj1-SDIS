@@ -1,6 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.Files;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -14,13 +12,13 @@ import java.util.Random;
 public class Peer extends UnicastRemoteObject implements BackupInterface {
     private Version protocolVersion;
     private int serverId;
-    private int accessPoint;
+    private String accessPoint;
     private ControlModule controlModule;
     private BackupController backupController;
     private RestoreController restoreController;
 
     // protocol_version, server_id, access_point, mc_ip:port, mdb_ip:port, mdr_ip:port
-    private Peer(String protocolVersion, int serverId, int accessPoint,
+    private Peer(String protocolVersion, int serverId, String accessPoint,
                 String mcc_ip, int mcc_port, String mbc_ip, int mbc_port, String mrc_ip, int mrc_port
     ) throws RemoteException {
         super(); // required to avoid the 'rmic' step
@@ -119,15 +117,14 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
                 "\n::::::::::::::::::::::::::::::::::::::::::::";
     }
 
-
-    private String getUrl(){
-        return BackupInterface.BASE_URL + accessPoint;
+    public String getAccessPoint() {
+        return accessPoint;
     }
 
     public static void main(String args[]) throws Exception {
         // get rmi registry using default PORT
         try {
-            LocateRegistry.getRegistry(PORT);
+            LocateRegistry.getRegistry(HOST);
         } catch (RemoteException e) {
             System.err.println(e.getMessage());
             System.err.println("Please start rmiregistry beforehand.");
@@ -137,7 +134,8 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
         // crawl through this object instance to the name "BackupPeer"
         ArrayList<Integer> accessPoints = new ArrayList<>();
-        String [] namingList = Naming.list(BASE_URL);
+        String [] namingList = Naming.list(HOST);
+        String BASE_URL = HOST+"/BackupPeer";
         for (String str: namingList) {
             if (str.contains(BASE_URL)) {
                 String substr = str.substring(BASE_URL.length());
@@ -151,15 +149,16 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         Peer peer;
         String protocolVersion;
         int serverId;
-        int accessPoint;
+        String accessPoint;
         String mcc_ip, mbc_ip, mrc_ip;
         int mcc_port, mbc_port, mrc_port;
         // initialize automatically
         if (args.length == 0){
             protocolVersion = "1.0";
             serverId = new Random().nextInt(100000);
-            accessPoint = 0;
-            while (accessPoints.contains(accessPoint)) ++accessPoint;
+            int iAccessPoint = 0;
+            while (accessPoints.contains(iAccessPoint)) ++iAccessPoint;
+            accessPoint = "//localhost:1099/BackupPeer"+iAccessPoint;
             mcc_ip = "239.0.0.0";
             mcc_port = 1234;
             mbc_ip = "239.1.0.0";
@@ -172,7 +171,7 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
         else if (args.length == 9){
             protocolVersion = args[0];
             serverId = Integer.parseInt(args[1]);
-            accessPoint = Integer.parseInt(args[2]);
+            accessPoint = args[2];
             mcc_ip = args[3];
             mcc_port = Integer.parseInt(args[4]);
             mbc_ip = args[5];
@@ -187,8 +186,7 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
         // bind!
         peer = new Peer(protocolVersion, serverId, accessPoint, mcc_ip, mcc_port, mbc_ip, mbc_port, mrc_ip, mrc_port);
-        Naming.rebind(peer.getUrl(), peer);
+        Naming.rebind(peer.getAccessPoint(), peer);
         //Naming.unbind(peer.getUrl());
     }
-
 }

@@ -1,10 +1,8 @@
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface BackupInterface extends Remote {
-    int PORT = 1099;
-    String BASE_URL = "//localhost:"+ PORT +"/BackupPeer";
+    String HOST = "//localhost:1099";
     String backup(String filePath, int repDegree) throws RemoteException;
     byte[] restore(String fileName) throws RemoteException;
     String reclaim(int maxSpace) throws RemoteException;

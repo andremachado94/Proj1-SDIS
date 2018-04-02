@@ -22,7 +22,6 @@ public class Client {
     private JTextField mccField;
     private JTextField protverField;
     private JButton restartRMIButton;
-    private JTextArea textArea1;
     private JButton launchNewPeerButton;
     private JLabel statusField;
     private JButton reclaimButton;
@@ -190,11 +189,14 @@ public class Client {
             String[] mrc = mrcField.getText().split(":");
             try {
                 String command = "java Peer "
-                        + protverField.getText() + serverIdField.getText() + accessPointField.getText()
-                        + mcc[0] + mcc[1] + mbc[0] + mbc[1] + mrc[0] + mrc[1];
+                        + protverField.getText() + " "
+                        + serverIdField.getText() + " "
+                        + "//localhost:1099/" + posfixField.getText() + " "
+                        + mcc[0] + " " + mcc[1] + " "
+                        + mbc[0] + " " + mbc[1] + " "
+                        + mrc[0] + " " + mrc[1] + " ";
                 System.out.println(command);
-                Process p = Runtime.getRuntime().exec(command);
-                //p.getOutputStream();
+                Runtime.getRuntime().exec(command);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -264,26 +266,26 @@ public class Client {
         try {
             String operation = args[1].toUpperCase();
             switch (operation) {
-                case "BACKUP": // e.g.: java Client BackupPeer0 BACKUP test1.pdf 3
+                case "BACKUP": // e.g.: java Client //localhost/BackupPeer0 BACKUP test1.pdf 3
                     if (args.length == 3 || args.length == 4){
                         int repDegree = args.length!=4 ? 1 : Integer.parseInt(args[3]);
                         System.out.println(peer.backup(args[2], repDegree)); // pathname, rep_degree
                     }
                     else throw new IllegalArgumentException("BACKUP operation requires parameters <pathname> or <pathname> <rep_degree>");
                     break;
-                case "RESTORE": // e.g.: java Client BackupPeer0 RESTORE test1.pdf
+                case "RESTORE": // e.g.: java Client //localhost/BackupPeer0 RESTORE test1.pdf
                     if (args.length == 3) System.out.println(Arrays.toString(peer.restore(args[2]))); // pathname
                     else throw new IllegalArgumentException("RESTORE operation requires parameter <filename>");
                     break;
-                case "DELETE": // e.g.: java Client BackupPeer0 DELETE test1.pdf
+                case "DELETE": // e.g.: java Client //localhost/BackupPeer0 DELETE test1.pdf
                     if (args.length == 3) System.out.println(peer.delete(args[2])); // pathname
                     else throw new IllegalArgumentException("DELETE operation requires parameter <filename>");
                     break;
-                case "RECLAIM": // e.g.: java Client BackupPeer0 RECLAIM 10000
+                case "RECLAIM": // e.g.: java Client //localhost/BackupPeer0 RECLAIM 10000
                     if (args.length == 3) System.out.println(peer.reclaim(Integer.parseInt(args[2]))); // pathname
                     else throw new IllegalArgumentException("DELETE operation requires parameter <filename>");
                     break;
-                case "STATE": // e.g.: java Client BackupPeer0 STATE
+                case "STATE": // e.g.: java Client //localhost/BackupPeer0 STATE
                     if (args.length == 2) System.out.println(peer.state());
                     else throw new IllegalArgumentException("STATE operation requires no further parameters");
                     break;
@@ -311,8 +313,8 @@ public class Client {
         System.out.println("\t\tSyntax:");
         System.out.println("\t\t\tjava Client <peer_ap> BACKUP <pathname> <rep_degree>");
         System.out.println("\t\te.g.:");
-        System.out.println("\t\t\tjava Client BackupPeer0 BACKUP mynotebook.txt");
-        System.out.println("\t\t\tjava Client BackupPeer0 BACKUP mynotebook.txt 3");
+        System.out.println("\t\t\tjava Client //localhost/BackupPeer0 BACKUP mynotebook.txt");
+        System.out.println("\t\t\tjava Client //localhost/BackupPeer0 BACKUP mynotebook.txt 3");
         System.out.println();
         System.out.println("\tRESTORE : ");
         System.out.println("\t\tDescription: ");
@@ -320,7 +322,7 @@ public class Client {
         System.out.println("\t\tSyntax:");
         System.out.println("\t\t\tjava Client <peer_ap> RESTORE <filename>");
         System.out.println("\t\te.g.:");
-        System.out.println("\t\t\tjava Client BackupPeer0 RESTORE mynotebook.txt");
+        System.out.println("\t\t\tjava Client //localhost/BackupPeer0 RESTORE mynotebook.txt");
         System.out.println();
         System.out.println("\tDELETE : ");
         System.out.println("\t\tDescription: ");
@@ -328,7 +330,7 @@ public class Client {
         System.out.println("\t\tSyntax:");
         System.out.println("\t\t\tjava Client <peer_ap> DELETE <filename>");
         System.out.println("\t\te.g.:");
-        System.out.println("\t\t\tjava Client BackupPeer0 DELETE mynotebook.txt");
+        System.out.println("\t\t\tjava Client //localhost/BackupPeer0 DELETE mynotebook.txt");
         System.out.println();
         System.out.println("\tRECLAIM : ");
         System.out.println("\t\tDescription: ");
@@ -336,7 +338,7 @@ public class Client {
         System.out.println("\t\tSyntax:");
         System.out.println("\t\t\tjava Client <peer_ap> RECLAIM <max_space>");
         System.out.println("\t\te.g.:");
-        System.out.println("\t\t\tjava Client BackupPeer0 RECLAIM 10000");
+        System.out.println("\t\t\tjava Client //localhost/BackupPeer0 RECLAIM 10000");
         System.out.println();
         System.out.println("\tSTATE : ");
         System.out.println("\t\tDescription: ");
@@ -344,6 +346,6 @@ public class Client {
         System.out.println("\t\tSyntax:");
         System.out.println("\t\t\tjava Client <peer_ap> STATE");
         System.out.println("\t\te.g.:");
-        System.out.println("\t\t\tjava Client BackupPeer0 STATE");
+        System.out.println("\t\t\tjava Client //localhost/BackupPeer0 STATE");
     }
 }
