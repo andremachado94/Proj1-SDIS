@@ -95,7 +95,10 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     @Override
     public String reclaim(int maxSpace) { //TODO
-        return "TODO implement Peer-side RECLAIM";
+        if(controlModule.StartReclaimRequest(maxSpace)){
+            return "Reclaim: successfully reclaimed space";
+        }
+        return "Error: Failed to reclaim space";
     }
 
     @Override
