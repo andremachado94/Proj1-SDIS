@@ -54,13 +54,17 @@ public class ControlModule {
                 int messageType = controlMessageParser.GetMessageType(new String(msg));
                 if(messageType == ControlMessageParser.TYPE_STORED){
                     StoredMessage storedMessage;
-                    if((storedMessage = controlMessageParser.ParseStoredMessage(new String(msg))) != null){
+                    if((storedMessage = controlMessageParser.ParseStoredMessage(new String(msg))) != null) {
                         List<Integer> peers = storedMap.get(storedMessage.getFileId() + "_" + storedMessage.getChunkNumber());
-                        if(peers == null){
+                        if (peers == null) {
                             peers = new ArrayList<Integer>();
                         }
-                        peers.add(storedMessage.getPeerId());
-                        storedMap.put(storedMessage.getFileId() + "_" + storedMessage.getChunkNumber(), peers);
+                        System.out.println("RECEIVED STORED " + storedMessage.getFileId() + "_" + storedMessage.getChunkNumber() + "\t-\t" + peers.toString());
+                        if (!peers.contains(storedMessage.getPeerId())) {
+                            peers.add(storedMessage.getPeerId());
+                            System.out.println("Adding key: " + storedMessage.getFileId() + "_" + storedMessage);
+                            storedMap.put(storedMessage.getFileId() + "_" + storedMessage.getChunkNumber(), peers);
+                        }
                     }
                     else{
                         System.out.println("Controlo recebido tipo STORED");
@@ -101,6 +105,7 @@ public class ControlModule {
 
     public boolean ReceivedStoredMessages(String fileId, int chunkNumber, int repDeg) {
         String key = fileId + "_" + chunkNumber;
+        System.out.println("Checking for " + key);
         if(storedMap.containsKey(key)) {
             if (storedMap.get(key).size() >= repDeg)
                 return true;
