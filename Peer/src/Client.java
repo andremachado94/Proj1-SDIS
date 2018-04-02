@@ -243,13 +243,13 @@ public class Client {
             frame.pack();
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
-            return;
+            System.exit(0);
         }
 
         // CLI: help
         if (args[0].equalsIgnoreCase("help")){
             printHelp();
-            return;
+            System.exit(0);
         }
 
         // <peer_ap>
@@ -296,7 +296,9 @@ public class Client {
         catch (Exception e){
             System.err.println(e.getMessage());
             System.err.println("If you need to help, simply execute 'Client help'.");
+            System.exit(1);
         }
+        System.exit(0);
     }
 
 

@@ -106,14 +106,35 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     @Override
     public String state() {
+        /*
+        Retrieve local service state information
+            For each file whose backup it has initiated:
+                The file pathname
+                The backup service id of the file
+                The desired replication degree
+                For each chunk of the file:
+                Its id
+                Its perceived replication degree
+            For each chunk it stores:
+                Its id
+                Its size (in KBytes)
+                Its perceived replication degree
+            The peer's storage capacity, i.e. the maximum amount of disk space that can be used to store chunks, and the amount of storage (both in KBytes) used to backup the chunks.
+
+         */
         return  "\n:::::::::::::::: PEER STATE ::::::::::::::::" +
-                "\n\t  Protocol Version: "+protocolVersion+
-                "\n\t         Server ID: "+serverId+
-                "\n\t      Access Point: "+accessPoint+
-                "\n\t    Control Module: "+controlModule+ //TODO implement this toString()
-                "\n\t Backup Controller: "+backupController+ //TODO implement this toString()
-                "\n\tRestore Controller: "+restoreController+ //TODO implement this toString()
-                //TODO space used + space total + space left
+                "\n\t Protocol Version: "+protocolVersion+
+                "\n\t Server ID: "+serverId+
+                "\n\t Access Point: "+accessPoint+
+                "\n\t Files:" +
+                "\n\t * ID: " + fileId +
+                "\n\t * Pathname: " + pathname +
+                "\n\t * Rep.Deg.: " + repDeg +
+                "\n\t * Chunk " + chunkId + " with rep.deg. " + chunkRepDeg +
+                "\n\t Chunks:" +
+                "\n\t "
+
+
                 "\n::::::::::::::::::::::::::::::::::::::::::::";
     }
 

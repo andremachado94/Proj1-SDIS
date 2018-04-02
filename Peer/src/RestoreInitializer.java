@@ -39,7 +39,7 @@ public class RestoreInitializer {
 
         Thread restoreRequest = new Thread(() -> {
 
-            ExecutorService executor = Executors.newFixedThreadPool(5);//creating a pool of 5 threads
+            ExecutorService executor = Executors.newFixedThreadPool(5);
             //TODO Change 3 to 1000000
             for (int i = 0; i < 1000000; i++) {
                 int finalI = i;
