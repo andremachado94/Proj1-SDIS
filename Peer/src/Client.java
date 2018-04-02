@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
@@ -24,39 +26,39 @@ public class Client {
     private JButton restoreButton;
     private JButton deleteButton;
     private JButton stateButton;
-    private JTextField a239000TextField;
-    private JTextField a10TextField;
+    private JTextField mccField;
+    private JTextField protverField;
     private JButton restartRMIButton;
     private JTextArea textArea1;
     private JButton launchNewPeerButton;
     private JLabel statusField;
     private JButton reclaimButton;
+    private JTextField ipField;
+    private JTextField portField;
+    private JTextField serverIdField;
+    private JTextField posfixField;
+    private JTextField mbcField;
+    private JTextField mrcField;
+    private JList<String> localApList;
 
     public Client() {
-        restartRMIButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO execute pkill -9 -f rmiregistry
-                //TODO execute rmiregistry
-            }
-        });
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateAccessPoints(lookupField.getText());
+                apList.setListData(getAccessPoints(lookupField.getText()));
             }
         });
         lookupField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateAccessPoints(lookupField.getText());
+                apList.setListData(getAccessPoints(lookupField.getText()));
             }
         });
         apList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    accessPointField.setText(apList.getSelectedValue().toString());
+                    apList.setListData(getAccessPoints(lookupField.getText()));
                 }
             }
         });
@@ -181,9 +183,45 @@ public class Client {
                 JOptionPane.showMessageDialog(panelMain, result, "Peer's State response", JOptionPane.PLAIN_MESSAGE);
             }
         });
+        restartRMIButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Runtime.getRuntime().exec("pkill -9 -f rmiregistry").waitFor();
+                    Runtime.getRuntime().exec("rmiregistry");
+                    //Runtime.getRuntime().exec("pkill -9 -f Peer");
+                } catch (IOException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        serverIdField.getDocument().addDocumentListener(new DocumentListener(){
+            public void insertUpdate(DocumentEvent e) {posfixField.setText("BackupPeer"+serverIdField.getText());}
+            public void removeUpdate(DocumentEvent e) {posfixField.setText("BackupPeer"+serverIdField.getText());}
+            public void changedUpdate(DocumentEvent e) {posfixField.setText("BackupPeer"+serverIdField.getText());}
+        });
+        launchNewPeerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] mcc = mccField.getText().split(":");
+                String[] mbc = mbcField.getText().split(":");
+                String[] mrc = mrcField.getText().split(":");
+                try {
+                    String command = "java Peer "
+                            + protverField.getText() + serverIdField.getText() + accessPointField.getText()
+                            + mcc[0] + mcc[1] + mbc[0] + mbc[1] + mrc[0] + mrc[1];
+                    System.out.println(command);
+                    Process p = Runtime.getRuntime().exec(command);
+                    //p.getOutputStream();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                localApList.setListData(getAccessPoints("//localhost:1099"));
+            }
+        });
     }
 
-    private void updateAccessPoints(String host){
+    private String [] getAccessPoints(String host){
         try {
             String [] namingList = Naming.list(host);
             System.out.println("Java RMI list gotten.");
@@ -191,16 +229,16 @@ public class Client {
             for (String s: namingList) {
                 System.out.println("\t"+s);
             }
-            apList.setListData(namingList);
+            return namingList;
         } catch (RemoteException e) {
             System.err.println(e.getMessage());
             System.err.println("RMI Registry not found. Start rmiregistry beforehand.");
             statusField.setText("Error: RMI Registry not found.");
-            apList.setListData(new String[0]);
+            return new String[0];
         } catch (MalformedURLException e) {
             System.err.println(e.getMessage());
             statusField.setText("Error: Malformed URL.");
-            apList.setListData(new String[0]);
+            return new String[0];
         }
 
     }
@@ -208,12 +246,12 @@ public class Client {
     public static void main(String args[]) throws MalformedURLException,RemoteException,NotBoundException {
         // GUI start
         if (args.length==0){
-            // Set cross-platform Java L&F (also called "Metal")
-            try {
+            // set L&F to GTK
+            /*try {
                 UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel"); //Windows Look and feel
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             // init jframe
             JFrame frame = new JFrame("Client");

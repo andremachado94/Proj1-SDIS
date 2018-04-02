@@ -178,7 +178,7 @@
           <grid id="1e637" layout-manager="GridLayoutManager" row-count="8" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <tabbedpane title="Local RMI" enabled="false"/>
+              <tabbedpane title="Local RMI"/>
             </constraints>
             <properties/>
             <border type="none"/>
@@ -193,19 +193,10 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="21f40" class="javax.swing.JList" default-binding="true">
+                  <component id="21f40" class="javax.swing.JList" binding="localApList">
                     <constraints/>
                     <properties>
-                      <model>
-                        <item value="item 1"/>
-                        <item value="item 2"/>
-                        <item value="item 3"/>
-                        <item value="item 4"/>
-                        <item value="item 5"/>
-                        <item value="item 6"/>
-                        <item value="item 7"/>
-                        <item value="item 8"/>
-                      </model>
+                      <model/>
                     </properties>
                   </component>
                 </children>
@@ -242,7 +233,7 @@
                   <text value="IP"/>
                 </properties>
               </component>
-              <component id="7e67f" class="javax.swing.JTextField" default-binding="true">
+              <component id="7e67f" class="javax.swing.JTextField" binding="ipField">
                 <constraints>
                   <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -262,7 +253,7 @@
                   <text value="Server ID"/>
                 </properties>
               </component>
-              <component id="56de6" class="javax.swing.JTextField" default-binding="true">
+              <component id="56de6" class="javax.swing.JTextField" binding="serverIdField">
                 <constraints>
                   <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -272,7 +263,7 @@
                   <text value="4"/>
                 </properties>
               </component>
-              <component id="6af37" class="javax.swing.JTextField" default-binding="true">
+              <component id="6af37" class="javax.swing.JTextField" binding="portField">
                 <constraints>
                   <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -300,7 +291,7 @@
                   <text value="AP Posfix"/>
                 </properties>
               </component>
-              <component id="b2e51" class="javax.swing.JTextField" default-binding="true">
+              <component id="b2e51" class="javax.swing.JTextField" binding="posfixField">
                 <constraints>
                   <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -320,7 +311,7 @@
                   <text value="MC Channel"/>
                 </properties>
               </component>
-              <component id="1f2f4" class="javax.swing.JTextField" binding="a239000TextField" default-binding="true">
+              <component id="1f2f4" class="javax.swing.JTextField" binding="mccField">
                 <constraints>
                   <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -339,7 +330,7 @@
                   <text value="Protocol Ver"/>
                 </properties>
               </component>
-              <component id="7e110" class="javax.swing.JTextField" binding="a10TextField" default-binding="true">
+              <component id="7e110" class="javax.swing.JTextField" binding="protverField">
                 <constraints>
                   <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -357,7 +348,7 @@
                   <text value="MB Channel"/>
                 </properties>
               </component>
-              <component id="f447a" class="javax.swing.JTextField" default-binding="true">
+              <component id="f447a" class="javax.swing.JTextField" binding="mbcField">
                 <constraints>
                   <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -376,7 +367,7 @@
                   <text value="MR Channel"/>
                 </properties>
               </component>
-              <component id="ccc22" class="javax.swing.JTextField" default-binding="true">
+              <component id="ccc22" class="javax.swing.JTextField" binding="mrcField">
                 <constraints>
                   <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -408,7 +399,7 @@
           <grid id="cd9e9" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <tabbedpane title="BackupPeer0" enabled="false"/>
+              <tabbedpane title="BackupPeer0"/>
             </constraints>
             <properties>
               <enabled value="true"/>
