@@ -29,7 +29,7 @@ public class ControlMessageParser {
 
     public StoredMessage ParseStoredMessage(String msg){
         String unparsedData[] = msg.split(" ");
-        String unparsedMessageData[] = new String[6];
+        String unparsedMessageData[] = new String[60];
 
         //Delete excessive white space
 
@@ -163,16 +163,20 @@ public class ControlMessageParser {
 
     public DeleteMessage ParseDeleteMessage(String msg) {
         String unparsedData[] = msg.split(" ");
-        String unparsedMessageData[] = new String[5];
+        String unparsedMessageData[] = new String[50];
 
+
+        System.out.println("PARSING DELETE MSG:\n" + msg);
         //Delete excessive white space
 
         int j = 0;
         for (int i = 0 ; i<unparsedData.length ; i++)
         {
             if(j >= 5){
-                System.out.println("Invalid (excessive) number of arguments in DELETE\n");
-                return null;
+                if(unparsedData[i].length() != 0){
+                    System.out.println("Invalid (excessive) number of arguments in DELETE\n");
+                    return null;
+                }
             }
             else if(unparsedData[i].length() == 0){
                 continue;

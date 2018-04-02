@@ -93,7 +93,10 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     @Override
     public String reclaim(int maxSpace) { //TODO
-        return "TODO implement Peer-side RECLAIM";
+        if(controlModule.StartReclaimRequest(maxSpace)){
+            return "Reclaim: successfully reclaimed space";
+        }
+        return "Error: Failed to reclaim space";
     }
 
     @Override
@@ -106,35 +109,21 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     @Override
     public String state() {
-        /*
-        Retrieve local service state information
-            For each file whose backup it has initiated:
-                The file pathname
-                The backup service id of the file
-                The desired replication degree
-                For each chunk of the file:
-                Its id
-                Its perceived replication degree
-            For each chunk it stores:
-                Its id
-                Its size (in KBytes)
-                Its perceived replication degree
-            The peer's storage capacity, i.e. the maximum amount of disk space that can be used to store chunks, and the amount of storage (both in KBytes) used to backup the chunks.
 
-         */
+        final String dir = System.getProperty("user.dir");
+        final String peerdir = new File(dir).getParent()+"/"+"backup_chunks"+"/"+serverId;
+        File f = new File(peerdir);
+
+        long size = Util.PathSize(f.toPath());
+
         return  "\n:::::::::::::::: PEER STATE ::::::::::::::::" +
-                "\n\t Protocol Version: "+protocolVersion+
-                "\n\t Server ID: "+serverId+
-                "\n\t Access Point: "+accessPoint+
-                "\n\t Files:" +
-                "\n\t * ID: " + fileId +
-                "\n\t * Pathname: " + pathname +
-                "\n\t * Rep.Deg.: " + repDeg +
-                "\n\t * Chunk " + chunkId + " with rep.deg. " + chunkRepDeg +
-                "\n\t Chunks:" +
-                "\n\t "
-
-
+                "\n\t  Protocol Version: "+protocolVersion+
+                "\n\t         Server ID: "+serverId+
+                "\n\t      Access Point: "+accessPoint+
+                "\n\t Peer Disk Space: "+controlModule.GetMaxPeerCapacity()+"kB"+
+                "\n\t Peer Used Space: "+(size/1000)+"kB"+ //TODO implement this toString()
+                "\n\t Peer Available Space: "+(controlModule.GetMaxPeerCapacity()-(size/1000))+"kB"+ //TODO implement this toString()
+                //TODO space used + space total + space left
                 "\n::::::::::::::::::::::::::::::::::::::::::::";
     }
 

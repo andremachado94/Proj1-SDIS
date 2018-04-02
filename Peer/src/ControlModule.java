@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
+
+import static com.sun.imageio.plugins.jpeg.JPEG.version;
 
 /**
  * Created by andremachado on 16/03/2018.
@@ -19,7 +22,7 @@ public class ControlModule {
     int port;
     private int id;
 
-    private long maxPeerCapacity = 1700;
+    private long maxPeerCapacity = 80000; //Default - 80 MB
 
     public void SetRestoreController(RestoreController restoreController) {
         this.restoreController = restoreController;
@@ -44,7 +47,89 @@ public class ControlModule {
     }
 
     public void StartDeleteRequest(String fileName, String version){
-        SendControlMessage(DeleteMessage.GetDeleteMessage(version, id,  fileName).getBytes());
+        String msg = DeleteMessage.GetDeleteMessage(version, id,  fileName);
+        SendControlMessage(msg.getBytes());
+    }
+
+    public boolean StartReclaimRequest(int maxPeerCapacity){
+        this.maxPeerCapacity = maxPeerCapacity;
+        final String dir = System.getProperty("user.dir");
+        final String peerdir = new File(dir).getParent()+"/"+"backup_chunks"+"/"+id;
+        File f = new File(peerdir);
+        if(Util.PathSize(f.toPath()) <= maxPeerCapacity){
+            return true;
+        }
+
+        return ReclaimSpace(f, maxPeerCapacity);
+    }
+
+    private boolean ReclaimSpace(File f, int maxPeerCapacity) {
+        File directory = f;
+        boolean res = false;
+
+        //make sure directory exists
+        if(!directory.exists()){
+            System.out.println("Directory does not exist.");
+            return true;
+        }else{
+            try{
+                res = ReclaimDelete(directory, f, maxPeerCapacity*1000);
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+        return res;
+    }
+
+    public boolean ReclaimDelete(File file, File baseFile, int capacity)
+            throws IOException{
+
+        if(file.isDirectory()){
+
+            //directory is empty, then delete it
+            if(file.list().length==0){
+                file.delete();
+                System.out.println("Directory is deleted : " + file.getAbsolutePath());
+                if(ReclaimExitCheck(baseFile, capacity))
+                    return true;
+            }
+            else{
+                //list all the directory contents
+                String files[] = file.list();
+
+                for (String temp : files) {
+                    //construct the file structure
+                    File fileDelete = new File(file, temp);
+                    //recursive delete
+                    boolean res = ReclaimDelete(fileDelete, baseFile, capacity);
+                    if(res) return true;
+                }
+
+                //check the directory again, if empty then delete it
+                if(file.list().length==0){
+                    file.delete();
+                    System.out.println("Directory is deleted : " + file.getAbsolutePath());
+                    if(ReclaimExitCheck(baseFile, capacity))
+                        return true;
+                }
+            }
+
+        }else{
+
+            System.out.println("File is deleted : " + file.getAbsolutePath());
+            //SendControlMessage(RemovedMessage.GetRemovedMessage("1.0", id, file.getParentFile().getName(), n).getBytes());
+            file.delete();
+            if(ReclaimExitCheck(baseFile, capacity))
+                return true;
+        }
+        return false;
+    }
+
+    private static boolean ReclaimExitCheck(File baseFile, int capacity){
+        if(Util.PathSize(baseFile.toPath()) > capacity){
+            return false;
+        }
+        return true;
     }
 
     private void InitializeControlChannelListener(){
