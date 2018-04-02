@@ -29,7 +29,7 @@ public class ControlMessageParser {
 
     public StoredMessage ParseStoredMessage(String msg){
         String unparsedData[] = msg.split(" ");
-        String unparsedMessageData[] = new String[6];
+        String unparsedMessageData[] = new String[60];
 
         //Delete excessive white space
 

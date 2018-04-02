@@ -17,6 +17,7 @@ public class DeleteMessage {
 
     public static String GetDeleteMessage(String version, int peerId, String fileName){
         String fileId = new String(Util.SHA256(fileName));
+        fileId = fileId.replaceAll("\\s+", "");
         return "DELETE " + version + " " + peerId + " " + fileId + " " + u.getCRLF_CRLF();
     }
 

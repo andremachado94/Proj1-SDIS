@@ -111,13 +111,20 @@ public class Peer extends UnicastRemoteObject implements BackupInterface {
 
     @Override
     public String state() {
+
+        final String dir = System.getProperty("user.dir");
+        final String peerdir = new File(dir).getParent()+"/"+"backup_chunks"+"/"+serverId;
+        File f = new File(peerdir);
+
+        long size = Util.PathSize(f.toPath());
+
         return  "\n:::::::::::::::: PEER STATE ::::::::::::::::" +
                 "\n\t  Protocol Version: "+protocolVersion+
                 "\n\t         Server ID: "+serverId+
                 "\n\t      Access Point: "+accessPoint+
-                "\n\t    Control Module: "+controlModule+ //TODO implement this toString()
-                "\n\t Backup Controller: "+backupController+ //TODO implement this toString()
-                "\n\tRestore Controller: "+restoreController+ //TODO implement this toString()
+                "\n\t Peer Disk Space: "+controlModule.GetMaxPeerCapacity()+"kB"+
+                "\n\t Peer Used Space: "+(size/1000)+"kB"+ //TODO implement this toString()
+                "\n\t Peer Available Space: "+(controlModule.GetMaxPeerCapacity()-(size/1000))+"kB"+ //TODO implement this toString()
                 //TODO space used + space total + space left
                 "\n::::::::::::::::::::::::::::::::::::::::::::";
     }

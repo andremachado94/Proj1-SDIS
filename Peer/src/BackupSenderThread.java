@@ -22,7 +22,7 @@ public class BackupSenderThread implements Runnable {
     public void run() {
         long waitTime = 200;
 
-        while(!controlModule.ReceivedStoredMessages(Util.GetCleanId(new String(fileId)), chunkNumber, repDeg)){
+        while(!controlModule.ReceivedStoredMessages(new String(fileId), chunkNumber, repDeg)){
             channel.SendBackupRequest(msg);
             try {
                 Thread.sleep(waitTime);

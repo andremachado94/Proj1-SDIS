@@ -22,7 +22,7 @@ public class ControlModule {
     int port;
     private int id;
 
-    private long maxPeerCapacity = 40000;
+    private long maxPeerCapacity = 80000; //Default - 80 MB
 
     public void SetRestoreController(RestoreController restoreController) {
         this.restoreController = restoreController;
