@@ -60,6 +60,12 @@ To get help run:
 java Client help
 ```
 
+## Miscelaneous
+
+At runtime, if not existent, the following folders will be created:
+* **Peer/backup_chunks** - this is where each Peer will create its own folder named according to its Server ID and store its chunks.
+* **Peer/src/logs** - this is where each Peer that is initiated by the ./run_peers will save its log.
+
 ## Authors
 
 * **André Machado** - [andremachado94](https://github.com/andremachado94)
