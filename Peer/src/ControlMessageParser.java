@@ -69,7 +69,7 @@ public class ControlMessageParser {
 
         int peerId = Integer.parseInt(unparsedData[2]);
 
-        if(false){ //TODO
+        if(false){
             System.out.println("Invalid peerId number in STORED");
             return null;
         }
@@ -85,7 +85,7 @@ public class ControlMessageParser {
 
         int chunkNum = Integer.parseInt(unparsedData[4]);
 
-        if(false){ //TODO
+        if(false){
             System.out.println("Invalid chunk number in STORED");
             return null;
         }
@@ -136,7 +136,7 @@ public class ControlMessageParser {
 
         int peerId = Integer.parseInt(unparsedData[2]);
 
-        if(false){ //TODO
+        if(false){
             System.out.println("Invalid peerId number in GETCHUNK");
             return null;
         }
@@ -152,7 +152,7 @@ public class ControlMessageParser {
 
         int chunkNum = Integer.parseInt(unparsedData[4]);
 
-        if(false){ //TODO
+        if(false){
             System.out.println("Invalid chunk number in GETCHUNK");
             return null;
         }
@@ -208,7 +208,7 @@ public class ControlMessageParser {
 
         int peerId = Integer.parseInt(unparsedData[2]);
 
-        if(false){ //TODO
+        if(false){
             System.out.println("Invalid peerId number in GETCHUNK");
             return null;
         }

@@ -13,19 +13,13 @@ public class RestoreController {
         this.id = id;
         initializer = new RestoreInitializer(ip, port, id, controlModule, channel);
         dispatcher = new RestoreDispatcher(ip, port, id, controlModule, channel, initializer);
-
     }
 
     public byte[] StartRestoreRequest(String fileName, String version){
         return initializer.StartRestoreRequest(fileName, version);
     }
 
-    public void InitializerNotifier(GetChunkMessage getChunkMessage){
-        initializer.Notifier(getChunkMessage);
-    }
-
     public void SendChunkMessage(GetChunkMessage getChunkMessage) {
-
         Thread thread = new Thread() {
             public void run(){
                 try {

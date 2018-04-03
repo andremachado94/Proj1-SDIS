@@ -229,12 +229,6 @@ public class Client {
     public static void main(String args[]) throws MalformedURLException,RemoteException,NotBoundException {
         // GUI start
         if (args.length==0){
-            // set L&F to GTK
-            /*try {
-                UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel"); //Windows Look and feel
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-                e.printStackTrace();
-            }*/
 
             // init jframe
             JFrame frame = new JFrame("Client");
@@ -243,7 +237,7 @@ public class Client {
             frame.pack();
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
-            System.exit(0);
+            return;
         }
 
         // CLI: help

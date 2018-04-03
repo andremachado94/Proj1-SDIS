@@ -66,8 +66,6 @@ public class PutChunk {
             version = "1.0"; //default version
         }
 
-        //TODO hash function ??
-
         System.out.println("CREATING PUTCHUNK MSG WTH ID: " + new String(u.SHA256(fileName)));
 
         String dataString = "PUTCHUNK " + version + " " + peerId + " ";
@@ -92,9 +90,6 @@ public class PutChunk {
         return c;
     }
 
-
-    //TODO change this to constructor??
-    //TODO when return null stop thread
     public static PutChunk ParsePutChunkMessage(byte[] receivedData){
 
         StreamSearcher streamSearcher = new StreamSearcher(u.CRLF_CRLF.getBytes());
@@ -167,7 +162,7 @@ public class PutChunk {
 
         int peerId = Integer.parseInt(unparsedData[2]);
 
-        if(false){ //TODO
+        if(false){
             System.out.println("Invalid peerId number in PUTCHUNK");
             return null;
         }
@@ -183,14 +178,14 @@ public class PutChunk {
 
         int chunkNum = Integer.parseInt(unparsedData[4]);
 
-        if(false){ //TODO
+        if(false){
             System.out.println("Invalid chunk number in PUTCHUNK");
             return null;
         }
 
         int repDegree = Integer.parseInt(unparsedData[5]);
 
-        if(false){ //TODO
+        if(false){
             System.out.println("Invalid replication degree in PUTCHUNK");
             return null;
         }

@@ -26,12 +26,8 @@ public class RestoreDispatcher {
         channel.SetOnMessageReceivedListener(new OnMessageReceivedListener() {
             @Override
             public String OnMessageReceived(byte[] msg) {
-                //TODO received backup message. Need to create worker thread to handle it.
                 RestoreReceiverThread workerThread = new RestoreReceiverThread(msg, id, controlModule, restoreInitializer);
                 workerThread.start();
-                //TODO Check control for repDeg
-
-
                 return "ok";
             }
         });

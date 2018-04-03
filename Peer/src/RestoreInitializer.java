@@ -31,7 +31,7 @@ public class RestoreInitializer {
 
     public byte[] StartRestoreRequest(String fileName, String version) {
 
-        String fileId = new String(Util.SHA256(fileName)); //TODO
+        String fileId = new String(Util.SHA256(fileName));
 
         ongoingRestore.put(Util.GetCleanId(fileId), -1);
         System.out.println("Adding key: " + Util.GetCleanId(fileId));
@@ -40,7 +40,6 @@ public class RestoreInitializer {
         Thread restoreRequest = new Thread(() -> {
 
             ExecutorService executor = Executors.newFixedThreadPool(5);
-            //TODO Change 3 to 1000000
             for (int i = 0; i < 1000000; i++) {
                 int finalI = i;
                 Runnable runnable = new Runnable(){
@@ -149,10 +148,6 @@ public class RestoreInitializer {
 
     public void AddChunk(String key, byte[] data){
         restoredChunks.put(key, data);
-    }
-
-    public void Notifier(GetChunkMessage getChunkMessage) {
-        //TODO update some regestry table
     }
 
 

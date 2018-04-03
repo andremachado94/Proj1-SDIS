@@ -40,7 +40,7 @@ java Peer <protocol_ver> <server_id> <access_point> <mcc_ip> <mcc_port> <mbc_ip>
 ```
 java Peer 1.1 4 //localhost:1099/BackupPeer4 239.0.0.0 1234 239.1.0.0 1234 239.2.0.0 1234
 ```
-Lambda functions were used, and are not supported by Java 7.
+
 ### Running the Client
 
 After compiling and running peers, start Client by running:

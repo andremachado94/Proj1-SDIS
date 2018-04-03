@@ -1,15 +1,9 @@
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Stream;
-
-import static com.sun.imageio.plugins.jpeg.JPEG.version;
 
 /**
  * Created by andremachado on 16/03/2018.
@@ -39,8 +33,6 @@ public class ControlModule {
         InitializeControlChannelListener();
     }
 
-
-    //TODO define criteria to clean Maps
 
     public void SendControlMessage(byte[] msg){
         channel.SendControlMessage(msg);

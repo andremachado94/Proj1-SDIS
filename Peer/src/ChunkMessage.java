@@ -72,8 +72,6 @@ public class ChunkMessage {
             version = this.version.toString();
         }
 
-        //TODO hash function ??
-
         String dataString = "CHUNK " + version + " " + id + " " + fileId + " " + chunkNumber + " " + u.CRLF_CRLF;
         byte preData[] = dataString.getBytes();
 
@@ -166,7 +164,7 @@ public class ChunkMessage {
 
         int peerId = Integer.parseInt(unparsedData[2]);
 
-        if(false){ //TODO
+        if(false){
             System.out.println("Invalid peerId number in CHUNK");
             return null;
         }
@@ -182,7 +180,7 @@ public class ChunkMessage {
 
         int chunkNum = Integer.parseInt(unparsedData[4]);
 
-        if(false){ //TODO
+        if(false){
             System.out.println("Invalid chunk number in CHUNK");
             return null;
         }
